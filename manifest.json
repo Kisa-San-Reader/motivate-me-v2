@@ -2,7 +2,7 @@
   "name": "Motivate Me",
   "short_name": "MotivateMe",
   "description": "A gentle motivational card app with immersive scenes",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a0a1a",
   "theme_color": "#0a0a1a",
