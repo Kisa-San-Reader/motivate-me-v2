@@ -72,11 +72,59 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 .scene-pinkrain::before{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:50px 100px 0 3px rgba(255,100,180,0.6),120px 200px 0 2px rgba(255,130,200,0.5),200px 80px 0 3px rgba(255,80,160,0.55),270px 300px 0 2px rgba(255,120,190,0.6),340px 150px 0 3px rgba(255,90,170,0.5),80px 350px 0 2px rgba(255,140,210,0.55),180px 400px 0 3px rgba(255,110,180,0.5),300px 250px 0 2px rgba(255,100,170,0.6)}
 /* Scene: Torii Gate */
 .scene-torii .scene-bg{background:linear-gradient(180deg,#ffcba4,#ff9a6c 30%,#d4724e 50%,#2d5a3a 70%,#1a3a25)}
-.scene-torii::before{top:80px;left:50%;margin-left:-60px;width:120px;height:90px;border-top:14px solid #cc2200;border-left:8px solid #cc2200;border-right:8px solid #cc2200;border-bottom:none;border-radius:4px 4px 0 0}
+.scene-torii::before{top:80px;left:50%;margin-left:-60px;width:120px;height:160px;border-top:14px solid #cc2200;border-left:8px solid #cc2200;border-right:8px solid #cc2200;border-bottom:none;border-radius:4px 4px 0 0}
 .scene-torii::after{top:108px;left:50%;margin-left:-70px;width:140px;height:8px;background:#cc2200;border-radius:2px}
 /* Scene: Blue Butterflies */
 .scene-bluebutterfly .scene-bg{background:linear-gradient(180deg,#050a15,#0a1a30 50%,#081828)}
 .scene-bluebutterfly::before{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:50px 120px 0 5px rgba(100,200,255,0.9),55px 118px 15px 8px rgba(100,200,255,0.3),150px 80px 0 4px rgba(80,180,240,0.85),155px 78px 12px 7px rgba(80,180,240,0.25),260px 200px 0 6px rgba(120,220,255,0.9),265px 198px 18px 9px rgba(120,220,255,0.3),90px 300px 0 4px rgba(100,210,250,0.8),95px 298px 14px 7px rgba(100,210,250,0.25),320px 100px 0 5px rgba(90,190,245,0.85),325px 98px 16px 8px rgba(90,190,245,0.3),200px 350px 0 5px rgba(110,200,255,0.8),205px 348px 15px 8px rgba(110,200,255,0.25)}
+/* Scene: Constellation */
+.scene-constellation .scene-bg{background:linear-gradient(180deg,#050510,#0a0a20)}
+.scene-constellation::before{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:20px 40px 0 1px rgba(200,220,255,0.9),80px 100px 0 0.5px rgba(255,255,255,0.8),150px 60px 0 1px rgba(180,200,255,0.85),200px 180px 0 0.5px rgba(255,255,255,0.7),260px 30px 0 1px rgba(200,230,255,0.9),320px 120px 0 0.5px rgba(255,255,255,0.8),50px 250px 0 1px rgba(180,210,255,0.85),130px 300px 0 0.5px rgba(255,255,255,0.75),220px 280px 0 1px rgba(200,220,255,0.9),300px 250px 0 0.5px rgba(255,255,255,0.8),350px 60px 0 1px rgba(180,200,255,0.85),40px 180px 0 0.5px rgba(255,255,255,0.7),280px 200px 0 1px rgba(200,220,255,0.8),170px 140px 0 0.5px rgba(255,255,255,0.75),100px 350px 0 1px rgba(200,230,255,0.9),240px 350px 0 0.5px rgba(255,255,255,0.8),330px 300px 0 1px rgba(180,210,255,0.85),60px 50px 0 0.5px rgba(255,255,255,0.7),190px 20px 0 1px rgba(200,220,255,0.9),350px 180px 0 0.5px rgba(255,255,255,0.75)}
+.scene-constellation::after{top:0;left:0;width:100%;height:100%;background:transparent;border:none;box-shadow:none;background-image:linear-gradient(to right,rgba(100,150,255,0.3) 0%,rgba(100,150,255,0.3) 100%),linear-gradient(to bottom right,rgba(100,150,255,0.3) 0%,rgba(100,150,255,0.3) 100%),linear-gradient(to bottom,rgba(100,150,255,0.3) 0%,rgba(100,150,255,0.3) 100%);background-size:80px 1px,60px 1px,1px 50px;background-position:80px 100px,150px 60px,200px 100px;background-repeat:no-repeat}
+/* Scene: Ocean */
+.scene-ocean .scene-bg{background:linear-gradient(180deg,#001030,#003060 50%,#001540)}
+.scene-ocean::before{left:0;right:0;top:60%;height:20%;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0%,transparent 40%,rgba(60,120,180,0.15) 42%,transparent 44%);opacity:0.8}
+.scene-ocean::after{top:0;left:0;right:0;height:15%;background:linear-gradient(180deg,rgba(255,255,255,0.05),transparent)}
+/* Scene: River */
+.scene-river .scene-bg{background:linear-gradient(180deg,#0a1a15,#0d2a25 50%,#0a2030)}
+.scene-river::before{top:10%;left:35%;width:30%;height:90%;background:linear-gradient(180deg,rgba(80,140,180,0.25),rgba(60,120,160,0.3),rgba(80,140,180,0.2));border-radius:40% 60% 50% 50%/10% 10% 90% 90%;transform:rotate(-5deg)}
+.scene-river::after{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:30px 80px 0 2px rgba(200,255,100,0.6),80px 200px 0 1.5px rgba(255,255,80,0.5),200px 120px 0 2px rgba(180,255,80,0.55),300px 280px 0 1.5px rgba(200,255,100,0.6),150px 350px 0 2px rgba(255,255,100,0.5),330px 150px 0 1.5px rgba(180,255,80,0.55),60px 320px 0 2px rgba(200,255,80,0.5),250px 50px 0 1.5px rgba(255,255,100,0.6)}
+/* Scene: Grassland */
+.scene-grassland .scene-bg{background:linear-gradient(180deg,#1a2a10,#2a3a18 50%,#0a1505)}
+.scene-grassland::before{bottom:0;left:0;right:0;height:20%;background:#0a1505;clip-path:polygon(0% 100%,0% 40%,2% 30%,4% 45%,6% 25%,8% 50%,10% 20%,12% 40%,14% 30%,16% 50%,18% 15%,20% 45%,22% 25%,24% 40%,26% 20%,28% 50%,30% 30%,32% 45%,34% 15%,36% 40%,38% 25%,40% 50%,42% 20%,44% 45%,46% 30%,48% 50%,50% 15%,52% 40%,54% 25%,56% 45%,58% 20%,60% 50%,62% 30%,64% 45%,66% 15%,68% 40%,70% 25%,72% 50%,74% 20%,76% 45%,78% 30%,80% 50%,82% 15%,84% 40%,86% 25%,88% 45%,90% 20%,92% 50%,94% 30%,96% 45%,98% 20%,100% 40%,100% 100%)}
+.scene-grassland::after{top:5%;left:50%;margin-left:-80px;width:160px;height:160px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,220,120,0.15),transparent 70%)}
+/* Scene: Snowfall */
+.scene-snowfall .scene-bg{background:linear-gradient(180deg,#1a2030,#2a3040 50%,#1a2535)}
+.scene-snowfall::before{bottom:0;left:0;right:0;height:40%;background:transparent;clip-path:polygon(0% 100%,0% 70%,10% 55%,20% 65%,30% 40%,40% 60%,50% 35%,60% 55%,70% 45%,80% 60%,90% 50%,100% 65%,100% 100%);background-color:rgba(180,190,210,0.2)}
+.scene-snowfall::after{top:40px;left:50px;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.3),transparent 70%)}
+/* Scene: Aurora */
+.scene-aurora .scene-bg{background:linear-gradient(180deg,#050520,#0a1a30 50%,#0a2020)}
+.scene-aurora::before{top:20%;left:5%;right:5%;height:30%;background:linear-gradient(180deg,rgba(0,255,150,0.08),rgba(0,200,180,0.12),rgba(100,255,200,0.06));border-radius:50% 50% 40% 40%;filter:blur(8px)}
+.scene-aurora::after{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:30px 60px 0 1px rgba(255,255,255,0.8),100px 40px 0 0.5px rgba(255,255,255,0.7),180px 80px 0 1px rgba(255,255,255,0.75),250px 30px 0 0.5px rgba(255,255,255,0.8),320px 70px 0 1px rgba(255,255,255,0.7),60px 120px 0 0.5px rgba(255,255,255,0.75),200px 130px 0 1px rgba(255,255,255,0.8),290px 110px 0 0.5px rgba(255,255,255,0.7),150px 150px 0 1px rgba(255,255,255,0.75)}
+/* Scene: Sakura */
+.scene-sakura .scene-bg{background:linear-gradient(180deg,#f8e0e8,#f0c8d8 50%,#e8b0c0)}
+.scene-sakura::before{top:5%;left:20%;width:60%;height:30%;background:radial-gradient(ellipse at 30% 50%,rgba(255,180,200,0.5),transparent 50%),radial-gradient(ellipse at 70% 40%,rgba(255,160,190,0.4),transparent 50%),radial-gradient(ellipse at 50% 60%,rgba(255,190,210,0.45),transparent 50%)}
+.scene-sakura::after{bottom:20%;left:20%;width:60%;height:2px;background:#4a2020;box-shadow:10px -20px 0 1px #4a2020,30px -15px 0 1px #4a2020,-10px -25px 0 1px #4a2020,50px -10px 0 1px #4a2020}
+/* Scene: Planets */
+.scene-planets .scene-bg{background:linear-gradient(180deg,#05050a,#0a0a1a 50%,#0f0520)}
+.scene-planets::before{top:25%;left:50%;margin-left:-40px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#5a4a8a,#2a1a4a 60%,#1a0a2a);box-shadow:0 0 20px rgba(100,80,160,0.3);border:none}
+.scene-planets::after{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:30px 50px 0 0.5px rgba(255,255,255,0.8),80px 120px 0 1px rgba(255,255,255,0.7),150px 40px 0 0.5px rgba(255,255,255,0.75),220px 180px 0 1px rgba(255,255,255,0.8),290px 80px 0 0.5px rgba(255,255,255,0.7),60px 280px 0 1px rgba(255,255,255,0.75),180px 320px 0 0.5px rgba(255,255,255,0.8),320px 250px 0 1px rgba(255,255,255,0.7),100px 200px 0 0.5px rgba(255,255,255,0.75),350px 150px 0 1px rgba(255,255,255,0.8)}
+/* Scene: Fireflies */
+.scene-fireflies .scene-bg{background:linear-gradient(180deg,#0a1a0a,#152010 50%,#0a1508)}
+.scene-fireflies::before{bottom:0;left:50%;margin-left:-80px;width:160px;height:160px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,150,50,0.1),transparent 70%)}
+.scene-fireflies::after{display:none}
+/* Scene: Bubbles */
+.scene-bubbles .scene-bg{background:linear-gradient(180deg,#051520,#0a2535 50%,#081a28)}
+.scene-bubbles::before{top:0;left:0;right:0;height:40%;background:linear-gradient(170deg,rgba(255,255,255,0.03) 0%,transparent 30%),linear-gradient(190deg,rgba(255,255,255,0.02) 0%,transparent 25%)}
+.scene-bubbles::after{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:50px 200px 0 10px rgba(150,200,255,0.1),55px 195px 8px 12px rgba(150,200,255,0.05),150px 300px 0 14px rgba(120,180,240,0.08),155px 295px 10px 16px rgba(120,180,240,0.04),250px 150px 0 8px rgba(160,210,255,0.1),255px 145px 6px 10px rgba(160,210,255,0.05),320px 350px 0 12px rgba(140,190,250,0.08),325px 345px 8px 14px rgba(140,190,250,0.04),80px 400px 0 16px rgba(130,180,240,0.1),85px 395px 12px 18px rgba(130,180,240,0.05)}
+/* Scene: Magnolia */
+.scene-magnolia .scene-bg{background:linear-gradient(180deg,#d0d8e0,#b8c8d8 50%,#a0b0c0)}
+.scene-magnolia::before{bottom:30%;left:30%;width:40%;height:3px;background:#4a4a50;box-shadow:15px -30px 0 1px #4a4a50,40px -20px 0 1px #4a4a50,-5px -40px 0 1px #4a4a50,60px -15px 0 1px #4a4a50,25px -50px 0 1px #4a4a50}
+.scene-magnolia::after{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:80px 120px 0 12px rgba(255,250,245,0.8),85px 115px 8px 4px rgba(255,200,220,0.4),200px 90px 0 10px rgba(255,250,245,0.75),205px 85px 6px 3px rgba(255,190,210,0.35),300px 150px 0 14px rgba(255,250,245,0.8),305px 145px 10px 5px rgba(255,200,220,0.4),140px 200px 0 11px rgba(255,250,245,0.75),145px 195px 7px 4px rgba(255,190,210,0.35)}
+/* Scene: Lantern Festival */
+.scene-lanternfestival .scene-bg{background:linear-gradient(180deg,#0a0508,#1a0a10 50%,#0a0508)}
+.scene-lanternfestival::before{top:0;left:0;width:100%;height:100%;background:transparent;box-shadow:30px 60px 0 8px rgba(255,140,20,0.9),35px 55px 15px 12px rgba(255,140,20,0.3),80px 120px 0 7px rgba(255,160,40,0.85),85px 115px 14px 11px rgba(255,160,40,0.25),150px 40px 0 9px rgba(255,120,0,0.9),155px 35px 16px 13px rgba(255,120,0,0.3),200px 180px 0 7px rgba(255,150,30,0.85),205px 175px 14px 11px rgba(255,150,30,0.25),260px 80px 0 8px rgba(255,130,10,0.9),265px 75px 15px 12px rgba(255,130,10,0.3),320px 150px 0 7px rgba(255,170,50,0.85),325px 145px 14px 11px rgba(255,170,50,0.25),50px 250px 0 8px rgba(255,140,20,0.8),55px 245px 15px 12px rgba(255,140,20,0.25),130px 300px 0 7px rgba(255,160,40,0.8),135px 295px 14px 11px rgba(255,160,40,0.2),230px 270px 0 9px rgba(255,120,0,0.85),235px 265px 16px 13px rgba(255,120,0,0.25)}
+.scene-lanternfestival::after{bottom:0;left:0;right:0;height:15%;background:#050205;clip-path:polygon(0% 100%,0% 60%,3% 50%,6% 55%,9% 45%,12% 55%,15% 40%,18% 50%,21% 45%,24% 55%,27% 40%,30% 50%,33% 45%,36% 55%,39% 40%,42% 50%,45% 45%,48% 55%,51% 40%,54% 50%,57% 45%,60% 55%,63% 40%,66% 50%,69% 45%,72% 55%,75% 40%,78% 50%,81% 45%,84% 55%,87% 40%,90% 50%,93% 45%,96% 55%,100% 45%,100% 100%)}
 .particle{position:absolute;pointer-events:none}
 .p-petal{border-radius:50% 0 50% 0;background:linear-gradient(135deg,rgba(255,183,197,0.9),rgba(255,255,255,0.7));animation:fall linear infinite}
 .p-firefly{border-radius:50%;background:rgba(255,255,100,0.8);box-shadow:0 0 6px rgba(255,255,100,0.6),0 0 12px rgba(255,255,100,0.3);animation:drift linear infinite}
@@ -86,6 +134,9 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 .p-butterfly{border-radius:3px;background:rgba(100,200,255,0.85);box-shadow:0 0 8px rgba(100,200,255,0.5),0 0 16px rgba(100,200,255,0.2);transform:rotate(45deg);animation:driftButterfly linear infinite}
 .p-snow{border-radius:50%;background:rgba(255,255,255,0.6);animation:fall linear infinite}
 .p-lotus{border-radius:50% 50% 40% 40%;background:radial-gradient(ellipse,rgba(255,180,200,0.8),rgba(255,130,170,0.4));animation:bob ease-in-out infinite}
+.p-bubble{border-radius:50%;background:rgba(200,230,255,0.3);border:1px solid rgba(255,255,255,0.2);animation:floatUp linear infinite}
+.p-star{width:2px;height:2px;border-radius:50%;background:#fff;box-shadow:0 0 3px #fff;animation:sparkle ease-in-out infinite}
+.p-leaf{border-radius:0 50% 50% 50%;background:linear-gradient(135deg,rgba(180,120,40,0.8),rgba(220,160,60,0.6));animation:fall linear infinite}
 </style>
 </head>
 <body>
@@ -108,6 +159,7 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 </nav>
 <div class="fav-view hidden" id="favView">
 <h2 class="fav-header">&#x2764;&#xFE0F; Favorites</h2>
+<button class="act-btn" id="playFavBtn" style="margin:0 auto 20px;display:block;width:56px;height:56px;font-size:26px">&#x25B6;</button>
 <div class="fav-list" id="favList"></div>
 </div>
 <div class="heart-burst" id="heartBurst"></div>
@@ -312,7 +364,27 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 {"text":"The earth has music for those who listen.","scene":"bluebutterfly","particles":"butterflies"},
 {"text":"You don't need more time. You need more focus.","scene":"torii","particles":"fireflies"},
 {"text":"Adventure is worthwhile.","scene":"pinkrain","particles":"rain"},
-{"text":"The energy you bring to each moment determines the results you get.","scene":"temple","particles":"sparkles"}
+{"text":"The energy you bring to each moment determines the results you get.","scene":"temple","particles":"sparkles"},
+{"text":"The stars are mapping out your destiny tonight.","scene":"constellation","particles":"star"},
+{"text":"You are as deep and vast as the ocean itself.","scene":"ocean","particles":"bubbles"},
+{"text":"Let your thoughts flow like a river. Do not dam them.","scene":"river","particles":"fireflies"},
+{"text":"Even the tallest grass bends in the wind. Flexibility is grace.","scene":"grassland","particles":"leaf"},
+{"text":"Let the snow cover what was. Tomorrow is blank and beautiful.","scene":"snowfall","particles":"snow"},
+{"text":"The aurora exists to remind you that magic is real.","scene":"aurora","particles":"sparkles"},
+{"text":"Like sakura, your beauty is in your impermanence. Treasure now.","scene":"sakura","particles":"petals"},
+{"text":"You contain multitudes. Entire worlds orbit inside you.","scene":"planets","particles":"sparkles"},
+{"text":"Be the light that others are drawn to.","scene":"fireflies","particles":"fireflies"},
+{"text":"Rise, gently, like a bubble toward the surface.","scene":"bubbles","particles":"bubbles"},
+{"text":"Even in winter, the magnolia prepares to bloom.","scene":"magnolia","particles":"snow"},
+{"text":"A thousand lanterns rise for you tonight. Each one is a wish granted.","scene":"lanternfestival","particles":"lanterns"},
+{"text":"The cosmos is not chaos. It is a dance. And you are part of it.","scene":"constellation","particles":"star"},
+{"text":"Waves do not compete. They simply arrive. So will your moment.","scene":"ocean","particles":"bubbles"},
+{"text":"Wandering is not the same as being lost.","scene":"river","particles":"fireflies"},
+{"text":"Your roots are deeper than you know.","scene":"grassland","particles":"leaf"},
+{"text":"Silence after snowfall is the universe holding its breath for you.","scene":"snowfall","particles":"snow"},
+{"text":"Colors you have never seen are waiting in your future.","scene":"aurora","particles":"sparkles"},
+{"text":"Petals fall without regret. Let go like that.","scene":"sakura","particles":"petals"},
+{"text":"You are not small. You are a universe pretending to be a person.","scene":"planets","particles":"sparkles"}
 ]
 </script>
 <script>
@@ -344,8 +416,9 @@ let hintShown=false;
 let currentScene='';
 let touchStartX=0;
 let touchStartY=0;
+let playingFavs=false;
 
-const lightScenes=['temple','torii'];
+const lightScenes=['temple','torii','sakura','magnolia'];
 
 function shuffle(arr){
   let a=[...arr];
@@ -401,6 +474,18 @@ function createParticles(type){
         const bott=Math.random()*15;
         p.style.cssText=`left:${left}%;bottom:${bott}%;width:${20+size*12}px;height:${14+size*8}px;animation-duration:${3+Math.random()*3}s;animation-delay:${delay}s`;
         break;
+      case'star':
+        p.classList.add('p-star');
+        p.style.cssText=`left:${left}%;top:${10+Math.random()*80}%;width:${2+size*1}px;height:${2+size*1}px;animation-duration:${1+Math.random()*2}s;animation-delay:${delay}s`;
+        break;
+      case'bubbles':
+        p.classList.add('p-bubble');
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${8+size*12}px;height:${8+size*12}px;animation-duration:${8+Math.random()*7}s;animation-delay:${delay}s`;
+        break;
+      case'leaf':
+        p.classList.add('p-leaf');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*6}px;height:${6+size*6}px;animation-duration:${6+Math.random()*6}s;animation-delay:${delay}s`;
+        break;
     }
     particles.appendChild(p);
   }
@@ -438,6 +523,7 @@ function showCard(){
 function nextCard(){
   if(!hintShown){hint.classList.add('hidden');hintShown=true;}
   currentIdx++;
+  if(playingFavs&&currentIdx>=deck.length){currentIdx=0;}
   showCard();
 }
 
@@ -505,6 +591,11 @@ function showHome(){
   actions.style.display='flex';
   navHome.classList.add('active');
   navFav.classList.remove('active');
+  if(playingFavs){
+    playingFavs=false;
+    buildDeck();
+    showCard();
+  }
 }
 function renderFavList(){
   favList.innerHTML='';
@@ -538,6 +629,21 @@ function renderFavList(){
     });
   });
 }
+
+// Play Favorites
+function playFavorites(){
+  if(favs.length===0)return;
+  favView.classList.add('hidden');
+  cardArea.style.display='flex';
+  actions.style.display='flex';
+  navHome.classList.add('active');
+  navFav.classList.remove('active');
+  playingFavs=true;
+  deck=favs.map(idx=>cards[idx]).filter(Boolean);
+  currentIdx=0;
+  showCard();
+}
+document.getElementById('playFavBtn').addEventListener('click',playFavorites);
 
 // Sound toggle
 let audioCtx=null;
