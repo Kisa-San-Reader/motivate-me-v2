@@ -39,6 +39,7 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 .mini-heart{position:absolute;font-size:16px;animation:burstUp .8s ease forwards;opacity:0}
 @keyframes burstUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(0.5)}}
 @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.7}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes mehSlide{to{opacity:0;transform:translateX(-120px) rotate(-8deg)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -51,11 +52,10 @@ body{background:#0a0a1a;color:#fff;touch-action:pan-y;user-select:none;-webkit-u
 @keyframes driftButterfly{0%{transform:translate(0,0) rotate(45deg) scale(1)}33%{transform:translate(15px,-30px) rotate(50deg) scale(1.1)}66%{transform:translate(-10px,-60px) rotate(40deg) scale(0.9)}100%{transform:translate(5px,-90px) rotate(45deg) scale(1)}}
 /* Image-based background scenes */
 .scene-imgbg{overflow:hidden}
-.scene-imgbg .scene-bg{background-size:contain !important;background-repeat:no-repeat !important;background-position:center center !important;animation:kenBurnsDrift 25s ease-in-out infinite alternate;transform-origin:center center}
-.scene-imgbg .scene-blur{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(40px) saturate(1.4) brightness(0.7);opacity:0.7;transform:scale(1.1)}
+.scene-imgbg .scene-bg{background-size:cover !important;background-repeat:no-repeat !important;background-position:center center !important}
+.scene-imgbg .scene-blur{display:none}
 .scene-imgbg::before{inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(0,0,0,0.3));z-index:2}
 .scene-imgbg::after{inset:0;z-index:2;background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,255,255,0.8),transparent),radial-gradient(1px 1px at 40% 70%,rgba(255,255,255,0.6),transparent),radial-gradient(1.5px 1.5px at 60% 20%,rgba(255,255,255,0.7),transparent),radial-gradient(1px 1px at 80% 50%,rgba(255,255,255,0.5),transparent),radial-gradient(1.5px 1.5px at 10% 80%,rgba(255,255,200,0.6),transparent),radial-gradient(1px 1px at 70% 85%,rgba(255,255,255,0.7),transparent),radial-gradient(1px 1px at 30% 50%,rgba(255,255,200,0.5),transparent),radial-gradient(1.5px 1.5px at 90% 15%,rgba(255,255,255,0.6),transparent),radial-gradient(1px 1px at 50% 90%,rgba(255,255,200,0.7),transparent),radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,0.5),transparent);background-size:300% 300%;animation:glitterShift 8s ease-in-out infinite alternate}
-@keyframes kenBurnsDrift{0%{transform:scale(1.05) translate(0%,0%)}25%{transform:scale(1.08) translate(-1%,1%)}50%{transform:scale(1.06) translate(1%,-0.5%)}75%{transform:scale(1.09) translate(-0.5%,-1%)}100%{transform:scale(1.05) translate(0.5%,0.5%)}}
 @keyframes glitterShift{0%{background-position:0% 0%;opacity:0.4}50%{background-position:50% 50%;opacity:0.7}100%{background-position:100% 100%;opacity:0.4}}
 
 /* Scene: Moonlit Mountain */
@@ -693,7 +693,6 @@ let currentIdx=0;
 let deck=[];
 let mehed=JSON.parse(localStorage.getItem('mm2_mehed')||'[]');
 let favs=JSON.parse(localStorage.getItem('mm2_favs')||'[]');
-let soundOn=JSON.parse(localStorage.getItem('mm2_sound')||'true');
 let hintShown=false;
 let currentScene='';
 let touchStartX=0;
@@ -798,13 +797,9 @@ function showCard(){
     const bgKey='bg:'+card.bg;
     if(currentScene!==bgKey){
       scene.className='scene scene-imgbg';
-      // Add blurred pastel backdrop
       let blurEl=scene.querySelector('.scene-blur');
-      if(!blurEl){blurEl=document.createElement('div');blurEl.className='scene-blur';scene.insertBefore(blurEl,sceneBg);}
-      blurEl.style.backgroundImage='url('+card.bg+')';
+      if(blurEl){blurEl.remove();}
       sceneBg.style.backgroundImage='url('+card.bg+')';
-      sceneBg.style.backgroundSize='';
-      sceneBg.style.backgroundPosition='';
       currentScene=bgKey;
       createParticles(card.particles||'sparkles');
     }
@@ -969,28 +964,131 @@ function playFavorites(){
 }
 document.getElementById('playFavBtn').addEventListener('click',playFavorites);
 
-// Sound toggle
+// Ambient sound system
 let audioCtx=null;
-function playChime(){
-  if(!soundOn)return;
+let ambientPlaying=false;
+let ambientTimeout=null;
+
+const ambientSounds={
+  rain:function(ctx,dur){
+    const bufSize=ctx.sampleRate*dur;
+    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.15;}
+    const src=ctx.createBufferSource();src.buffer=buf;
+    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=800;
+    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.3,ctx.currentTime+1);
+    gain.gain.setValueAtTime(0.3,ctx.currentTime+dur-2);
+    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
+    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
+    src.start();src.stop(ctx.currentTime+dur);return src;
+  },
+  birds:function(ctx,dur){
+    const nodes=[];
+    function chirp(time){
+      const osc=ctx.createOscillator();const gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type='sine';
+      const baseF=1800+Math.random()*1200;
+      osc.frequency.setValueAtTime(baseF,time);
+      osc.frequency.exponentialRampToValueAtTime(baseF*1.3,time+0.05);
+      osc.frequency.exponentialRampToValueAtTime(baseF*0.8,time+0.1);
+      osc.frequency.exponentialRampToValueAtTime(baseF*1.1,time+0.15);
+      gain.gain.setValueAtTime(0,time);
+      gain.gain.linearRampToValueAtTime(0.06,time+0.02);
+      gain.gain.linearRampToValueAtTime(0,time+0.2);
+      osc.start(time);osc.stop(time+0.2);nodes.push(osc);
+    }
+    for(let t=0;t<dur-1;t+=0.4+Math.random()*0.8){chirp(ctx.currentTime+t);}
+    return nodes[0];
+  },
+  water:function(ctx,dur){
+    const bufSize=ctx.sampleRate*dur;
+    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.2;}
+    const src=ctx.createBufferSource();src.buffer=buf;
+    const filt=ctx.createBiquadFilter();filt.type='bandpass';filt.frequency.value=400;filt.Q.value=2;
+    const lfo=ctx.createOscillator();const lfoGain=ctx.createGain();
+    lfo.frequency.value=0.3;lfoGain.gain.value=200;
+    lfo.connect(lfoGain);lfoGain.connect(filt.frequency);lfo.start();
+    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.25,ctx.currentTime+1);
+    gain.gain.setValueAtTime(0.25,ctx.currentTime+dur-2);
+    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
+    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
+    src.start();src.stop(ctx.currentTime+dur);lfo.stop(ctx.currentTime+dur);return src;
+  },
+  wind:function(ctx,dur){
+    const bufSize=ctx.sampleRate*dur;
+    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.3;}
+    const src=ctx.createBufferSource();src.buffer=buf;
+    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=300;
+    const lfo=ctx.createOscillator();const lfoGain=ctx.createGain();
+    lfo.frequency.value=0.15;lfoGain.gain.value=150;
+    lfo.connect(lfoGain);lfoGain.connect(filt.frequency);lfo.start();
+    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.2,ctx.currentTime+1.5);
+    gain.gain.setValueAtTime(0.2,ctx.currentTime+dur-2);
+    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
+    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
+    src.start();src.stop(ctx.currentTime+dur);lfo.stop(ctx.currentTime+dur);return src;
+  },
+  crickets:function(ctx,dur){
+    const nodes=[];
+    function chirr(time){
+      const osc=ctx.createOscillator();const gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type='square';osc.frequency.value=4000+Math.random()*1000;
+      gain.gain.setValueAtTime(0,time);
+      gain.gain.linearRampToValueAtTime(0.03,time+0.01);
+      gain.gain.setValueAtTime(0.03,time+0.05);
+      gain.gain.linearRampToValueAtTime(0,time+0.08);
+      osc.start(time);osc.stop(time+0.08);nodes.push(osc);
+    }
+    for(let t=0;t<dur-1;t+=0.1+Math.random()*0.2){chirr(ctx.currentTime+t);}
+    return nodes[0];
+  }
+};
+
+const ambientTypes=['rain','birds','water','wind','crickets'];
+
+function playAmbient(){
+  if(ambientPlaying)return;
   try{
     if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    ambientPlaying=true;
+    sndBtn.style.opacity='1';
+    sndBtn.style.animation='pulse 1s ease-in-out infinite';
+    const type=ambientTypes[Math.floor(Math.random()*ambientTypes.length)];
+    ambientSounds[type](audioCtx,10);
+    ambientTimeout=setTimeout(()=>{
+      ambientPlaying=false;
+      sndBtn.style.animation='';
+    },10000);
+  }catch(e){ambientPlaying=false;}
+}
+
+function playChime(){
+  try{
+    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended')audioCtx.resume();
     const osc=audioCtx.createOscillator();
     const gain=audioCtx.createGain();
     osc.connect(gain);gain.connect(audioCtx.destination);
     osc.type='sine';osc.frequency.setValueAtTime(800+Math.random()*400,audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.08,audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.6);
-    osc.start();osc.stop(audioCtx.currentTime+0.6);
+    gain.gain.setValueAtTime(0.06,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.5);
+    osc.start();osc.stop(audioCtx.currentTime+0.5);
   }catch(e){}
 }
 
-sndBtn.addEventListener('click',()=>{
-  soundOn=!soundOn;
-  localStorage.setItem('mm2_sound',JSON.stringify(soundOn));
-  sndBtn.style.opacity=soundOn?'1':'0.4';
-});
-sndBtn.style.opacity=soundOn?'1':'0.4';
+sndBtn.addEventListener('click',e=>{e.stopPropagation();playAmbient();});
+
 // Event listeners
 mehBtn.addEventListener('click',e=>{e.stopPropagation();mehCard();});
 favBtn.addEventListener('click',e=>{e.stopPropagation();favCard();playChime();});
