@@ -22,7 +22,7 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 .scene::before,.scene::after{content:'';position:absolute;pointer-events:none}
 .particles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .card-area{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:40px 24px 140px}
-.quote-wrap{text-align:center;max-width:340px;animation:fadeInUp .6s ease}
+.quote-wrap{text-align:center;max-width:340px;animation:fadeInUp 1s ease}
 .quote-text{font-style:italic;font-size:20px;line-height:1.6;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,0.6),0 0 30px rgba(0,0,0,0.3)}
 .quote-text.light-scene{color:#2a1a1a;text-shadow:0 1px 8px rgba(255,255,255,0.5)}
 .hint{position:absolute;bottom:160px;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,0.5);z-index:11;transition:opacity 1s;font-style:italic}
@@ -46,7 +46,7 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 @keyframes burstUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(0.5)}}
 @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.7}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes mehSlide{to{opacity:0;transform:translateX(-120px) rotate(-8deg)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes drift{0%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(10px,-20px) rotate(5deg)}50%{transform:translate(-5px,-40px) rotate(-3deg)}75%{transform:translate(8px,-60px) rotate(4deg)}100%{transform:translate(-3px,-80px) rotate(-2deg)}}
@@ -721,78 +721,86 @@ function buildDeck(){
 }
 function createParticles(type){
   particles.innerHTML='';
-  const count=30;
+  const count=25;
   for(let i=0;i<count;i++){
     const p=document.createElement('div');
     p.className='particle';
     const left=Math.random()*100;
-    const delay=Math.random()*0.5;
-    const dur=4+Math.random()*6;
+    const stagger=Math.random()*0.3;
     const size=Math.random();
     switch(type){
       case'petals':
         p.classList.add('p-petal');
-        p.style.cssText=`left:${left}%;top:${-10-Math.random()*20}px;width:${8+size*10}px;height:${10+size*12}px;opacity:${0.5+Math.random()*0.4};animation-duration:${dur}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${-10-Math.random()*20}px;width:${8+size*10}px;height:${10+size*12}px;opacity:${0.4+Math.random()*0.3};animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
         break;
       case'fireflies':
         p.classList.add('p-firefly');
-        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${4+size*3}px;height:${4+size*3}px;animation-duration:${6+Math.random()*8}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${3+size*3}px;height:${3+size*3}px;animation-duration:${12+Math.random()*10}s;animation-delay:${stagger}s`;
         break;
       case'sparkles':
         p.classList.add('p-sparkle');
-        p.style.cssText=`left:${left}%;top:${10+Math.random()*70}%;width:${2+size*3}px;height:${2+size*3}px;animation-duration:${1.5+Math.random()*2}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${10+Math.random()*70}%;width:${2+size*2}px;height:${2+size*2}px;animation-duration:${3+Math.random()*4}s;animation-delay:${stagger}s`;
         break;
       case'rain':
         p.classList.add('p-rain');
-        p.style.cssText=`left:${left}%;top:${-30}px;width:1px;height:${15+size*15}px;animation-duration:${0.6+Math.random()*0.8}s;animation-delay:${delay*0.3}s`;
+        p.style.cssText=`left:${left}%;top:${-30}px;width:1px;height:${12+size*10}px;opacity:0.25;animation-duration:${4+Math.random()*3}s;animation-delay:${stagger}s`;
         break;
       case'lanterns':
         p.classList.add('p-lantern');
-        p.style.cssText=`left:${left}%;bottom:-20px;width:${10+size*5}px;height:${12+size*6}px;animation-duration:${10+Math.random()*8}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${10+size*5}px;height:${12+size*6}px;animation-duration:${18+Math.random()*10}s;animation-delay:${stagger}s`;
         break;
       case'butterflies':
         p.classList.add('p-butterfly');
-        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${8+size*5}px;height:${8+size*5}px;animation-duration:${8+Math.random()*6}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${8+size*5}px;height:${8+size*5}px;animation-duration:${14+Math.random()*8}s;animation-delay:${stagger}s`;
         break;
       case'snow':
         p.classList.add('p-snow');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${3+size*4}px;height:${3+size*4}px;animation-duration:${dur+2}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${3+size*4}px;height:${3+size*4}px;animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
         break;
       case'lotus':
         p.classList.add('p-lotus');
         const bott=Math.random()*15;
-        p.style.cssText=`left:${left}%;bottom:${bott}%;width:${20+size*12}px;height:${14+size*8}px;animation-duration:${3+Math.random()*3}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;bottom:${bott}%;width:${20+size*12}px;height:${14+size*8}px;animation-duration:${5+Math.random()*4}s;animation-delay:${stagger}s`;
         break;
       case'star':
         p.classList.add('p-star');
-        p.style.cssText=`left:${left}%;top:${10+Math.random()*80}%;width:${2+size*1}px;height:${2+size*1}px;animation-duration:${1+Math.random()*2}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${10+Math.random()*80}%;width:${2+size*1}px;height:${2+size*1}px;animation-duration:${3+Math.random()*4}s;animation-delay:${stagger}s`;
         break;
       case'bubbles':
         p.classList.add('p-bubble');
-        p.style.cssText=`left:${left}%;bottom:-20px;width:${8+size*12}px;height:${8+size*12}px;animation-duration:${8+Math.random()*7}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${8+size*12}px;height:${8+size*12}px;animation-duration:${16+Math.random()*10}s;animation-delay:${stagger}s`;
         break;
       case'leaf':
         p.classList.add('p-leaf');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*6}px;height:${6+size*6}px;animation-duration:${6+Math.random()*6}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*6}px;height:${6+size*6}px;animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
         break;
       case'sand':
         p.classList.add('p-sand');
-        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${2+size*2}px;height:${2+size*2}px;animation-duration:${6+Math.random()*8}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${20+Math.random()*60}%;width:${2+size*2}px;height:${2+size*2}px;animation-duration:${12+Math.random()*10}s;animation-delay:${stagger}s`;
         break;
       case'mist':
         p.classList.add('p-mist');
-        p.style.cssText=`left:${left}%;top:${20+Math.random()*50}%;width:${30+size*40}px;height:${20+size*20}px;animation-duration:${10+Math.random()*10}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${20+Math.random()*50}%;width:${30+size*40}px;height:${20+size*20}px;animation-duration:${18+Math.random()*12}s;animation-delay:${stagger}s`;
         break;
       case'lightning':
         p.classList.add('p-lightning');
-        p.style.cssText=`left:${left}%;top:${10+Math.random()*40}%;width:1px;height:${10+size*20}px;animation-duration:${0.5+Math.random()*1}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${10+Math.random()*40}%;width:1px;height:${10+size*20}px;animation-duration:${2+Math.random()*3}s;animation-delay:${stagger}s`;
         break;
       case'comets':
         p.classList.add('p-comet');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${3+size*2}px;height:${3+size*2}px;animation-duration:${3+Math.random()*4}s;animation-delay:${delay}s`;
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${3+size*2}px;height:${3+size*2}px;animation-duration:${8+Math.random()*6}s;animation-delay:${stagger}s`;
         break;
     }
     particles.appendChild(p);
+  }
+}
+
+// Preload next image for instant transitions
+function preloadNextImage(){
+  const nextIdx=(currentIdx+1)%deck.length;
+  if(nextIdx<deck.length&&deck[nextIdx]&&deck[nextIdx].bg){
+    const img=new Image();
+    img.src=deck[nextIdx].bg;
   }
 }
 function showCard(){
@@ -836,7 +844,7 @@ function showCard(){
   }
   quoteWrap.style.animation='none';
   void quoteWrap.offsetHeight;
-  quoteWrap.style.animation='fadeInUp .6s ease';
+  quoteWrap.style.animation='fadeInUp 1s ease';
   qText.textContent=card.text;
   // Update fav button state
   const origIdx=cards.indexOf(card);
@@ -849,6 +857,8 @@ function showCard(){
   }
   // Restart ambient with new sound for each card
   if(soundOn&&audioCtx){startAmbient();}
+  // Preload next image
+  preloadNextImage();
 }
 function nextCard(){
   if(!hintShown){hint.classList.add('hidden');hintShown=true;}
