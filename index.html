@@ -188,6 +188,17 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 .p-mist{border-radius:50%;background:rgba(200,220,200,0.2);filter:blur(3px);animation:drift linear infinite}
 .p-lightning{width:1px;background:rgba(200,200,255,0.5);border-radius:1px;animation:sparkle ease-in-out infinite}
 .p-comet{width:3px;height:3px;border-radius:50%;background:rgba(255,255,200,0.9);box-shadow:0 0 4px rgba(255,255,200,0.6),-4px 2px 0 1px rgba(255,255,200,0.3),-8px 4px 0 0.5px rgba(255,255,200,0.15);animation:fall linear infinite}
+.p-rose{border-radius:50% 0 50% 50%;background:linear-gradient(135deg,rgba(220,50,80,0.85),rgba(180,30,60,0.7));box-shadow:inset 0 -2px 3px rgba(0,0,0,0.2);animation:fall linear infinite}
+.p-marigold{border-radius:40% 60% 50% 50%;background:linear-gradient(135deg,rgba(255,165,0,0.9),rgba(255,200,50,0.8));box-shadow:inset 0 -1px 2px rgba(200,100,0,0.3);animation:fall linear infinite}
+.p-lily{border-radius:50% 50% 30% 30%;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,240,250,0.7));box-shadow:0 0 4px rgba(255,200,255,0.3);animation:fall linear infinite}
+.p-magnolia-petal{border-radius:60% 40% 60% 40%;background:linear-gradient(135deg,rgba(255,250,245,0.9),rgba(255,220,230,0.7));box-shadow:0 0 6px rgba(255,200,220,0.2);animation:fall linear infinite}
+.p-iridescent{border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.5),transparent 60%);border:1px solid rgba(255,255,255,0.15);box-shadow:0 0 8px rgba(180,100,255,0.2),inset 0 0 6px rgba(100,200,255,0.15);animation:floatUp linear infinite}
+.p-water-sparkle{border-radius:50%;background:rgba(180,230,255,0.9);box-shadow:0 0 6px rgba(150,200,255,0.7),0 0 12px rgba(100,180,255,0.3);animation:sparkle ease-in-out infinite}
+.p-diya{border-radius:0 50% 50% 50%;background:linear-gradient(180deg,rgba(255,200,50,0.95),rgba(255,120,0,0.8));box-shadow:0 -3px 8px rgba(255,180,0,0.6),0 -6px 15px rgba(255,150,0,0.2);animation:bob ease-in-out infinite}
+.p-fall-leaf{border-radius:0 80% 0 80%;background:linear-gradient(135deg,rgba(180,80,20,0.85),rgba(220,140,30,0.7));animation:fall linear infinite}
+.p-glitter{border-radius:50%;background:rgba(255,255,255,0.95);box-shadow:0 0 3px rgba(255,255,200,0.8),0 0 8px rgba(255,200,100,0.4);animation:sparkle ease-in-out infinite}
+.p-star-big{width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff,0 0 12px rgba(200,220,255,0.4);animation:sparkle ease-in-out infinite}
+@keyframes iridShift{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(180deg)}100%{filter:hue-rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -543,138 +554,138 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 {"text":"The road may be long but your spirit is longer.","scene":"desertdusk","particles":"sand"},
 {"text":"Courage is not the absence of fear but walking through it anyway.","scene":"mistyforest","particles":"mist"},
 {"text":"You are the universe's way of experiencing joy.","scene":"nebula","particles":"star"},
-{"text":"Your light is needed in this world. Never dim it for anyone.","bg":"backgrounds/bg-001.png","particles":"sparkles"},
+{"text":"Your light is needed in this world. Never dim it for anyone.","bg":"backgrounds/bg-001.png","particles":"glitter"},
 {"text":"The universe rearranges itself to make room for your dreams.","bg":"backgrounds/bg-002.png","particles":"fireflies"},
-{"text":"You are not a drop in the ocean — you are the entire ocean in a drop.","bg":"backgrounds/bg-003.png","particles":"bubbles"},
+{"text":"You are not a drop in the ocean — you are the entire ocean in a drop.","bg":"backgrounds/bg-003.png","particles":"iridescent"},
 {"text":"Breathe deeply. You are exactly where you need to be.","bg":"backgrounds/bg-004.png","particles":"mist"},
-{"text":"The stars aligned the day you were born. Never forget that.","bg":"backgrounds/bg-005.png","particles":"star"},
-{"text":"Your story is still being written. Make it a page-turner.","bg":"backgrounds/bg-006.png","particles":"sparkles"},
+{"text":"The stars aligned the day you were born. Never forget that.","bg":"backgrounds/bg-005.png","particles":"stars-big"},
+{"text":"Your story is still being written. Make it a page-turner.","bg":"backgrounds/bg-006.png","particles":"glitter"},
 {"text":"Every sunrise is an invitation to brighten someone's day.","bg":"backgrounds/bg-007.png","particles":"fireflies"},
 {"text":"You carry within you the fire of a thousand suns.","bg":"backgrounds/bg-008.png","particles":"sparkles"},
-{"text":"Courage looks good on you. Wear it every day.","bg":"backgrounds/bg-009.png","particles":"petals"},
+{"text":"Courage looks good on you. Wear it every day.","bg":"backgrounds/bg-009.png","particles":"rose"},
 {"text":"The world is better because you are in it.","bg":"backgrounds/bg-010.png","particles":"butterflies"},
 {"text":"Let your soul breathe. You have earned this moment of peace.","bg":"backgrounds/bg-011.png","particles":"mist"},
-{"text":"Growth happens in silence. Trust the quiet seasons.","bg":"backgrounds/bg-012.png","particles":"leaf"},
-{"text":"You are proof that beautiful things take time.","bg":"backgrounds/bg-013.png","particles":"petals"},
+{"text":"Growth happens in silence. Trust the quiet seasons.","bg":"backgrounds/bg-012.png","particles":"fall-leaves"},
+{"text":"You are proof that beautiful things take time.","bg":"backgrounds/bg-013.png","particles":"magnolia"},
 {"text":"Rise like the dawn — steady, warm, and unstoppable.","bg":"backgrounds/bg-014.png","particles":"sparkles"},
-{"text":"Your potential is a garden waiting to bloom.","bg":"backgrounds/bg-015.png","particles":"petals"},
+{"text":"Your potential is a garden waiting to bloom.","bg":"backgrounds/bg-015.png","particles":"lily"},
 {"text":"In a world of noise, your calm is your superpower.","bg":"backgrounds/bg-016.png","particles":"snow"},
-{"text":"The kindness you give returns to you in waves.","bg":"backgrounds/bg-017.png","particles":"bubbles"},
-{"text":"Trust the process. Your breakthrough is closer than you think.","bg":"backgrounds/bg-018.png","particles":"sparkles"},
+{"text":"The kindness you give returns to you in waves.","bg":"backgrounds/bg-017.png","particles":"water-sparkle"},
+{"text":"Trust the process. Your breakthrough is closer than you think.","bg":"backgrounds/bg-018.png","particles":"glitter"},
 {"text":"You are a masterpiece in motion.","bg":"backgrounds/bg-019.png","particles":"butterflies"},
-{"text":"Let gratitude be the rhythm of your heart.","bg":"backgrounds/bg-020.png","particles":"fireflies"},
+{"text":"Let gratitude be the rhythm of your heart.","bg":"backgrounds/bg-020.png","particles":"diyas"},
 {"text":"Every challenge is shaping you into who you are meant to be.","bg":"backgrounds/bg-021.png","particles":"rain"},
 {"text":"You are stronger than your strongest excuse.","bg":"backgrounds/bg-022.png","particles":"lightning"},
-{"text":"Be the energy you want to attract.","bg":"backgrounds/bg-023.png","particles":"sparkles"},
+{"text":"Be the energy you want to attract.","bg":"backgrounds/bg-023.png","particles":"glitter"},
 {"text":"Mountains bow to those who climb with patience.","bg":"backgrounds/bg-024.png","particles":"mist"},
-{"text":"Your dreams are valid. Chase them relentlessly.","bg":"backgrounds/bg-025.png","particles":"comets"},
-{"text":"Inhale possibility. Exhale doubt.","bg":"backgrounds/bg-026.png","particles":"petals"},
+{"text":"Your dreams are valid. Chase them relentlessly.","bg":"backgrounds/bg-025.png","particles":"stars-big"},
+{"text":"Inhale possibility. Exhale doubt.","bg":"backgrounds/bg-026.png","particles":"rose"},
 {"text":"The road ahead is paved with your persistence.","bg":"backgrounds/bg-027.png","particles":"fireflies"},
 {"text":"You were built for this moment. Own it.","bg":"backgrounds/bg-028.png","particles":"sparkles"},
 {"text":"Let your scars tell a story of survival, not defeat.","bg":"backgrounds/bg-029.png","particles":"rain"},
-{"text":"Grace finds those who keep going.","bg":"backgrounds/bg-030.png","particles":"snow"},
+{"text":"Grace finds those who keep going.","bg":"backgrounds/bg-030.png","particles":"magnolia"},
 {"text":"Your heart knows truths your mind has yet to discover.","bg":"backgrounds/bg-031.png","particles":"fireflies"},
-{"text":"Every ending carries the seed of a new beginning.","bg":"backgrounds/bg-032.png","particles":"petals"},
+{"text":"Every ending carries the seed of a new beginning.","bg":"backgrounds/bg-032.png","particles":"marigold"},
 {"text":"The best view comes after the hardest climb.","bg":"backgrounds/bg-033.png","particles":"mist"},
-{"text":"You radiate a light that cannot be extinguished.","bg":"backgrounds/bg-034.png","particles":"sparkles"},
-{"text":"Be patient with yourself. Healing is not a race.","bg":"backgrounds/bg-035.png","particles":"lotus"},
-{"text":"Your existence is a revolution of love.","bg":"backgrounds/bg-036.png","particles":"petals"},
+{"text":"You radiate a light that cannot be extinguished.","bg":"backgrounds/bg-034.png","particles":"glitter"},
+{"text":"Be patient with yourself. Healing is not a race.","bg":"backgrounds/bg-035.png","particles":"lily"},
+{"text":"Your existence is a revolution of love.","bg":"backgrounds/bg-036.png","particles":"rose"},
 {"text":"Dare to be the person you always wished you could be.","bg":"backgrounds/bg-037.png","particles":"butterflies"},
-{"text":"The universe speaks in synchronicities. Pay attention.","bg":"backgrounds/bg-038.png","particles":"star"},
+{"text":"The universe speaks in synchronicities. Pay attention.","bg":"backgrounds/bg-038.png","particles":"stars-big"},
 {"text":"Rest is not a reward — it is a requirement.","bg":"backgrounds/bg-039.png","particles":"snow"},
-{"text":"You are not behind. You are blooming at your own pace.","bg":"backgrounds/bg-040.png","particles":"petals"},
-{"text":"Let your faith be bigger than your fear.","bg":"backgrounds/bg-041.png","particles":"lanterns"},
+{"text":"You are not behind. You are blooming at your own pace.","bg":"backgrounds/bg-040.png","particles":"magnolia"},
+{"text":"Let your faith be bigger than your fear.","bg":"backgrounds/bg-041.png","particles":"diyas"},
 {"text":"Storms pass. You remain.","bg":"backgrounds/bg-042.png","particles":"lightning"},
-{"text":"The magic is already inside you. Stop looking elsewhere.","bg":"backgrounds/bg-043.png","particles":"sparkles"},
-{"text":"You are allowed to take up space in this world.","bg":"backgrounds/bg-044.png","particles":"bubbles"},
+{"text":"The magic is already inside you. Stop looking elsewhere.","bg":"backgrounds/bg-043.png","particles":"glitter"},
+{"text":"You are allowed to take up space in this world.","bg":"backgrounds/bg-044.png","particles":"iridescent"},
 {"text":"Every breath is a second chance. Use it wisely.","bg":"backgrounds/bg-045.png","particles":"mist"},
-{"text":"Your softness is not weakness — it is quiet strength.","bg":"backgrounds/bg-046.png","particles":"petals"},
+{"text":"Your softness is not weakness — it is quiet strength.","bg":"backgrounds/bg-046.png","particles":"lily"},
 {"text":"Forgive yourself for not knowing what you did not know before you learned it.","bg":"backgrounds/bg-047.png","particles":"rain"},
-{"text":"You are the author and the hero of your own story.","bg":"backgrounds/bg-048.png","particles":"sparkles"},
-{"text":"Let your life be your message.","bg":"backgrounds/bg-049.png","particles":"lanterns"},
-{"text":"The sky is not the limit. Your belief system is.","bg":"backgrounds/bg-050.png","particles":"comets"},
+{"text":"You are the author and the hero of your own story.","bg":"backgrounds/bg-048.png","particles":"glitter"},
+{"text":"Let your life be your message.","bg":"backgrounds/bg-049.png","particles":"diyas"},
+{"text":"The sky is not the limit. Your belief system is.","bg":"backgrounds/bg-050.png","particles":"stars-big"},
 {"text":"Everything you need is already within reach.","bg":"backgrounds/bg-051.png","particles":"fireflies"},
-{"text":"Be so rooted in your worth that no storm can shake you.","bg":"backgrounds/bg-052.png","particles":"leaf"},
+{"text":"Be so rooted in your worth that no storm can shake you.","bg":"backgrounds/bg-052.png","particles":"fall-leaves"},
 {"text":"What feels impossible today will become your warm-up tomorrow.","bg":"backgrounds/bg-053.png","particles":"sparkles"},
-{"text":"Silence your inner critic. Amplify your inner champion.","bg":"backgrounds/bg-054.png","particles":"star"},
-{"text":"You are a constellation of resilience and grace.","bg":"backgrounds/bg-055.png","particles":"star"},
-{"text":"Today you are one step closer to the person you are becoming.","bg":"backgrounds/bg-056.png","particles":"petals"},
+{"text":"Silence your inner critic. Amplify your inner champion.","bg":"backgrounds/bg-054.png","particles":"stars-big"},
+{"text":"You are a constellation of resilience and grace.","bg":"backgrounds/bg-055.png","particles":"glitter"},
+{"text":"Today you are one step closer to the person you are becoming.","bg":"backgrounds/bg-056.png","particles":"marigold"},
 {"text":"Believe in the power of fresh starts.","bg":"backgrounds/bg-057.png","particles":"snow"},
 {"text":"Your journey is yours alone, and it is beautiful.","bg":"backgrounds/bg-058.png","particles":"butterflies"},
 {"text":"Not every storm comes to disrupt your life. Some come to clear your path.","bg":"backgrounds/bg-059.png","particles":"rain"},
-{"text":"You bloom differently in different seasons. That is your strength.","bg":"backgrounds/bg-060.png","particles":"petals"},
+{"text":"You bloom differently in different seasons. That is your strength.","bg":"backgrounds/bg-060.png","particles":"rose"},
 {"text":"The gentle ones change the world.","bg":"backgrounds/bg-061.png","particles":"mist"},
-{"text":"Your vibe attracts your tribe.","bg":"backgrounds/bg-062.png","particles":"fireflies"},
-{"text":"Do not wait for permission to become who you already are.","bg":"backgrounds/bg-063.png","particles":"sparkles"},
+{"text":"Your vibe attracts your tribe.","bg":"backgrounds/bg-062.png","particles":"diyas"},
+{"text":"Do not wait for permission to become who you already are.","bg":"backgrounds/bg-063.png","particles":"glitter"},
 {"text":"You have survived every bad day so far. Your track record is flawless.","bg":"backgrounds/bg-064.png","particles":"lightning"},
 {"text":"Be the calm in someone else's storm.","bg":"backgrounds/bg-065.png","particles":"rain"},
-{"text":"Your energy is magnetic. Use it wisely.","bg":"backgrounds/bg-066.png","particles":"sparkles"},
-{"text":"Joy is not found. It is created.","bg":"backgrounds/bg-067.png","particles":"lanterns"},
+{"text":"Your energy is magnetic. Use it wisely.","bg":"backgrounds/bg-066.png","particles":"water-sparkle"},
+{"text":"Joy is not found. It is created.","bg":"backgrounds/bg-067.png","particles":"diyas"},
 {"text":"The life you want is on the other side of consistency.","bg":"backgrounds/bg-068.png","particles":"fireflies"},
 {"text":"You do not have to have it all figured out to move forward.","bg":"backgrounds/bg-069.png","particles":"mist"},
-{"text":"Let your ambition be matched by your kindness.","bg":"backgrounds/bg-070.png","particles":"petals"},
-{"text":"Your intuition is a compass. Follow it.","bg":"backgrounds/bg-071.png","particles":"star"},
-{"text":"You are worthy of every good thing coming your way.","bg":"backgrounds/bg-072.png","particles":"sparkles"},
-{"text":"Embrace your season. Spring always follows winter.","bg":"backgrounds/bg-073.png","particles":"petals"},
-{"text":"Small steps still move you forward.","bg":"backgrounds/bg-074.png","particles":"leaf"},
-{"text":"You carry resilience in your bones.","bg":"backgrounds/bg-075.png","particles":"sparkles"},
-{"text":"Let your hope be louder than your doubt.","bg":"backgrounds/bg-076.png","particles":"lanterns"},
+{"text":"Let your ambition be matched by your kindness.","bg":"backgrounds/bg-070.png","particles":"magnolia"},
+{"text":"Your intuition is a compass. Follow it.","bg":"backgrounds/bg-071.png","particles":"stars-big"},
+{"text":"You are worthy of every good thing coming your way.","bg":"backgrounds/bg-072.png","particles":"glitter"},
+{"text":"Embrace your season. Spring always follows winter.","bg":"backgrounds/bg-073.png","particles":"lily"},
+{"text":"Small steps still move you forward.","bg":"backgrounds/bg-074.png","particles":"fall-leaves"},
+{"text":"You carry resilience in your bones.","bg":"backgrounds/bg-075.png","particles":"glitter"},
+{"text":"Let your hope be louder than your doubt.","bg":"backgrounds/bg-076.png","particles":"diyas"},
 {"text":"The present moment is a gift. Unwrap it gently.","bg":"backgrounds/bg-077.png","particles":"snow"},
 {"text":"You are braver than you believe on your bravest day.","bg":"backgrounds/bg-078.png","particles":"lightning"},
 {"text":"Happiness is a direction, not a destination.","bg":"backgrounds/bg-079.png","particles":"butterflies"},
-{"text":"Your value does not diminish because someone cannot see it.","bg":"backgrounds/bg-080.png","particles":"fireflies"},
-{"text":"Every masterpiece was once a blank canvas. Start today.","bg":"backgrounds/bg-081.png","particles":"sparkles"},
+{"text":"Your value does not diminish because someone cannot see it.","bg":"backgrounds/bg-080.png","particles":"water-sparkle"},
+{"text":"Every masterpiece was once a blank canvas. Start today.","bg":"backgrounds/bg-081.png","particles":"glitter"},
 {"text":"Healing is messy. Keep going anyway.","bg":"backgrounds/bg-082.png","particles":"rain"},
-{"text":"You are the sunrise someone is waiting for.","bg":"backgrounds/bg-083.png","particles":"sparkles"},
-{"text":"Life rewards the curious. Keep asking questions.","bg":"backgrounds/bg-084.png","particles":"star"},
-{"text":"Your mind is a garden. Tend it with care.","bg":"backgrounds/bg-085.png","particles":"leaf"},
-{"text":"The world needs what only you can give.","bg":"backgrounds/bg-086.png","particles":"petals"},
+{"text":"You are the sunrise someone is waiting for.","bg":"backgrounds/bg-083.png","particles":"marigold"},
+{"text":"Life rewards the curious. Keep asking questions.","bg":"backgrounds/bg-084.png","particles":"stars-big"},
+{"text":"Your mind is a garden. Tend it with care.","bg":"backgrounds/bg-085.png","particles":"fall-leaves"},
+{"text":"The world needs what only you can give.","bg":"backgrounds/bg-086.png","particles":"rose"},
 {"text":"Do not shrink to make others comfortable.","bg":"backgrounds/bg-087.png","particles":"sparkles"},
-{"text":"Your peace is worth more than proving a point.","bg":"backgrounds/bg-088.png","particles":"mist"},
+{"text":"Your peace is worth more than proving a point.","bg":"backgrounds/bg-088.png","particles":"iridescent"},
 {"text":"Tiny progress is still progress. Celebrate every step.","bg":"backgrounds/bg-089.png","particles":"fireflies"},
-{"text":"The best time to begin is always now.","bg":"backgrounds/bg-090.png","particles":"sparkles"},
-{"text":"Your comeback story will inspire thousands.","bg":"backgrounds/bg-091.png","particles":"comets"},
-{"text":"Choose hope over fear. Every single time.","bg":"backgrounds/bg-092.png","particles":"lanterns"},
-{"text":"What you water grows. Water your joy.","bg":"backgrounds/bg-093.png","particles":"rain"},
-{"text":"You are a walking miracle. Act accordingly.","bg":"backgrounds/bg-094.png","particles":"sparkles"},
-{"text":"Let your dreams be bigger than your memories.","bg":"backgrounds/bg-095.png","particles":"star"},
+{"text":"The best time to begin is always now.","bg":"backgrounds/bg-090.png","particles":"glitter"},
+{"text":"Your comeback story will inspire thousands.","bg":"backgrounds/bg-091.png","particles":"stars-big"},
+{"text":"Choose hope over fear. Every single time.","bg":"backgrounds/bg-092.png","particles":"diyas"},
+{"text":"What you water grows. Water your joy.","bg":"backgrounds/bg-093.png","particles":"water-sparkle"},
+{"text":"You are a walking miracle. Act accordingly.","bg":"backgrounds/bg-094.png","particles":"glitter"},
+{"text":"Let your dreams be bigger than your memories.","bg":"backgrounds/bg-095.png","particles":"stars-big"},
 {"text":"Inhale confidence. Exhale everything that dims your light.","bg":"backgrounds/bg-096.png","particles":"mist"},
-{"text":"Your strength is forged in fire and polished by patience.","bg":"backgrounds/bg-097.png","particles":"sparkles"},
+{"text":"Your strength is forged in fire and polished by patience.","bg":"backgrounds/bg-097.png","particles":"glitter"},
 {"text":"There is no force more powerful than a person determined to rise.","bg":"backgrounds/bg-098.png","particles":"lightning"},
-{"text":"Compassion is your greatest currency. Spend it freely.","bg":"backgrounds/bg-099.png","particles":"petals"},
-{"text":"You are not what happened to you. You are what you chose to become.","bg":"backgrounds/bg-100.png","particles":"butterflies"},
+{"text":"Compassion is your greatest currency. Spend it freely.","bg":"backgrounds/bg-099.png","particles":"magnolia"},
+{"text":"You are not what happened to you. You are what you chose to become.","bg":"backgrounds/bg-100.png","particles":"iridescent"},
 {"text":"Let the rhythm of your heart guide your decisions.","bg":"backgrounds/bg-101.png","particles":"fireflies"},
 {"text":"Vulnerability is courage in its purest form.","bg":"backgrounds/bg-102.png","particles":"rain"},
-{"text":"Your light illuminates paths for others to follow.","bg":"backgrounds/bg-103.png","particles":"lanterns"},
-{"text":"Do more of what makes you forget to check your phone.","bg":"backgrounds/bg-104.png","particles":"leaf"},
+{"text":"Your light illuminates paths for others to follow.","bg":"backgrounds/bg-103.png","particles":"diyas"},
+{"text":"Do more of what makes you forget to check your phone.","bg":"backgrounds/bg-104.png","particles":"fall-leaves"},
 {"text":"You were not born to merely exist. You were born to thrive.","bg":"backgrounds/bg-105.png","particles":"sparkles"},
 {"text":"Patience is not passive. It is concentrated strength.","bg":"backgrounds/bg-106.png","particles":"snow"},
-{"text":"The seeds you plant today become the forests of tomorrow.","bg":"backgrounds/bg-107.png","particles":"leaf"},
-{"text":"Own your mornings. Transform your life.","bg":"backgrounds/bg-108.png","particles":"sparkles"},
-{"text":"When the world says give up, hope whispers try one more time.","bg":"backgrounds/bg-109.png","particles":"lanterns"},
-{"text":"You are a force of nature. Act like it.","bg":"backgrounds/bg-110.png","particles":"lightning"},
-{"text":"Let your smile change the world. Do not let the world change your smile.","bg":"backgrounds/bg-111.png","particles":"petals"},
+{"text":"The seeds you plant today become the forests of tomorrow.","bg":"backgrounds/bg-107.png","particles":"marigold"},
+{"text":"Own your mornings. Transform your life.","bg":"backgrounds/bg-108.png","particles":"glitter"},
+{"text":"When the world says give up, hope whispers try one more time.","bg":"backgrounds/bg-109.png","particles":"diyas"},
+{"text":"You are a force of nature. Act like it.","bg":"backgrounds/bg-110.png","particles":"glitter"},
+{"text":"Let your smile change the world. Do not let the world change your smile.","bg":"backgrounds/bg-111.png","particles":"rose"},
 {"text":"Peace begins with a single deep breath.","bg":"backgrounds/bg-112.png","particles":"mist"},
-{"text":"Every expert was once a beginner. Keep going.","bg":"backgrounds/bg-113.png","particles":"sparkles"},
+{"text":"Every expert was once a beginner. Keep going.","bg":"backgrounds/bg-113.png","particles":"water-sparkle"},
 {"text":"Your character is built in the moments nobody is watching.","bg":"backgrounds/bg-114.png","particles":"fireflies"},
-{"text":"You are the dream that refused to stay asleep.","bg":"backgrounds/bg-115.png","particles":"star"},
-{"text":"Love yourself first and everything else falls into place.","bg":"backgrounds/bg-116.png","particles":"petals"},
+{"text":"You are the dream that refused to stay asleep.","bg":"backgrounds/bg-115.png","particles":"stars-big"},
+{"text":"Love yourself first and everything else falls into place.","bg":"backgrounds/bg-116.png","particles":"rose"},
 {"text":"Do not let a bad chapter ruin your entire book.","bg":"backgrounds/bg-117.png","particles":"rain"},
 {"text":"Great things never come from comfort zones.","bg":"backgrounds/bg-118.png","particles":"comets"},
-{"text":"You are one decision away from a completely different life.","bg":"backgrounds/bg-119.png","particles":"sparkles"},
-{"text":"Your persistence is your superpower.","bg":"backgrounds/bg-120.png","particles":"lightning"},
-{"text":"The world is changed by your example, not your opinion.","bg":"backgrounds/bg-121.png","particles":"lanterns"},
-{"text":"Be proud of how far you have come. Be excited about how far you can go.","bg":"backgrounds/bg-122.png","particles":"butterflies"},
+{"text":"You are one decision away from a completely different life.","bg":"backgrounds/bg-119.png","particles":"glitter"},
+{"text":"Your persistence is your superpower.","bg":"backgrounds/bg-120.png","particles":"glitter"},
+{"text":"The world is changed by your example, not your opinion.","bg":"backgrounds/bg-121.png","particles":"diyas"},
+{"text":"Be proud of how far you have come. Be excited about how far you can go.","bg":"backgrounds/bg-122.png","particles":"iridescent"},
 {"text":"Your soul already knows what it needs. Be still and listen.","bg":"backgrounds/bg-123.png","particles":"mist"},
-{"text":"Difficult does not mean impossible. It means you have to work harder.","bg":"backgrounds/bg-124.png","particles":"sparkles"},
-{"text":"Joy is the simplest form of gratitude.","bg":"backgrounds/bg-125.png","particles":"petals"},
-{"text":"You were given wings for a reason. Spread them.","bg":"backgrounds/bg-126.png","particles":"butterflies"},
-{"text":"Success is a series of small wins stacked together.","bg":"backgrounds/bg-127.png","particles":"sparkles"},
-{"text":"Believe something wonderful is about to happen.","bg":"backgrounds/bg-128.png","particles":"star"},
+{"text":"Difficult does not mean impossible. It means you have to work harder.","bg":"backgrounds/bg-124.png","particles":"glitter"},
+{"text":"Joy is the simplest form of gratitude.","bg":"backgrounds/bg-125.png","particles":"lily"},
+{"text":"You were given wings for a reason. Spread them.","bg":"backgrounds/bg-126.png","particles":"magnolia"},
+{"text":"Success is a series of small wins stacked together.","bg":"backgrounds/bg-127.png","particles":"glitter"},
+{"text":"Believe something wonderful is about to happen.","bg":"backgrounds/bg-128.png","particles":"stars-big"},
 {"text":"The power to change your life is in your next decision.","bg":"backgrounds/bg-129.png","particles":"fireflies"},
-{"text":"You are not too much. The world is just not used to your magic.","bg":"backgrounds/bg-130.png","particles":"sparkles"},
-{"text":"Create a life that feels good on the inside, not one that just looks good on the outside.","bg":"backgrounds/bg-131.png","particles":"lanterns"},
-{"text":"You are enough. You have always been enough. You will always be enough.","bg":"backgrounds/bg-132.png","particles":"petals"}
+{"text":"You are not too much. The world is just not used to your magic.","bg":"backgrounds/bg-130.png","particles":"glitter"},
+{"text":"Create a life that feels good on the inside, not one that just looks good on the outside.","bg":"backgrounds/bg-131.png","particles":"diyas"},
+{"text":"You are enough. You have always been enough. You will always be enough.","bg":"backgrounds/bg-132.png","particles":"rose"}
 ]
 </script>
 <script>
@@ -789,6 +800,46 @@ function createParticles(type){
       case'comets':
         p.classList.add('p-comet');
         p.style.cssText=`left:${left}%;top:${-10}px;width:${3+size*2}px;height:${3+size*2}px;animation-duration:${8+Math.random()*6}s;animation-delay:${stagger}s`;
+        break;
+      case'rose':
+        p.classList.add('p-rose');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*6}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
+        break;
+      case'marigold':
+        p.classList.add('p-marigold');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*5}px;height:${6+size*5}px;opacity:${0.7+Math.random()*0.3};animation-duration:${10+Math.random()*8}s;animation-delay:${stagger}s`;
+        break;
+      case'lily':
+        p.classList.add('p-lily');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${10+size*8}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${14+Math.random()*8}s;animation-delay:${stagger}s`;
+        break;
+      case'magnolia':
+        p.classList.add('p-magnolia-petal');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${12+size*8}px;height:${10+size*6}px;opacity:${0.5+Math.random()*0.3};animation-duration:${14+Math.random()*10}s;animation-delay:${stagger}s`;
+        break;
+      case'iridescent':
+        p.classList.add('p-iridescent');
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${12+size*16}px;height:${12+size*16}px;animation-duration:${18+Math.random()*12}s;animation-delay:${stagger}s;filter:hue-rotate(${Math.random()*360}deg)`;
+        break;
+      case'water-sparkle':
+        p.classList.add('p-water-sparkle');
+        p.style.cssText=`left:${left}%;top:${30+Math.random()*50}%;width:${2+size*3}px;height:${2+size*3}px;animation-duration:${2+Math.random()*3}s;animation-delay:${stagger}s`;
+        break;
+      case'diyas':
+        p.classList.add('p-diya');
+        p.style.cssText=`left:${left}%;bottom:${5+Math.random()*15}%;width:${8+size*4}px;height:${8+size*4}px;animation-duration:${4+Math.random()*3}s;animation-delay:${stagger}s`;
+        break;
+      case'fall-leaves':
+        p.classList.add('p-fall-leaf');
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*8}px;height:${6+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${10+Math.random()*8}s;animation-delay:${stagger}s;filter:hue-rotate(${Math.random()*40-20}deg)`;
+        break;
+      case'glitter':
+        p.classList.add('p-glitter');
+        p.style.cssText=`left:${left}%;top:${5+Math.random()*85}%;width:${2+size*2}px;height:${2+size*2}px;animation-duration:${1.5+Math.random()*2}s;animation-delay:${stagger}s`;
+        break;
+      case'stars-big':
+        p.classList.add('p-star-big');
+        p.style.cssText=`left:${left}%;top:${5+Math.random()*85}%;animation-duration:${3+Math.random()*4}s;animation-delay:${stagger}s`;
         break;
     }
     particles.appendChild(p);
