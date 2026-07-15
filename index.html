@@ -944,10 +944,13 @@ function createParticles(type){
 
 // Preload next image for instant transitions
 function preloadNextImage(){
-  const nextIdx=(currentIdx+1)%deck.length;
-  if(nextIdx<deck.length&&deck[nextIdx]&&deck[nextIdx].bg){
-    const img=new Image();
-    img.src=deck[nextIdx].bg;
+  // Preload next 10 images ahead
+  for(let offset=1;offset<=10;offset++){
+    const idx=(currentIdx+offset)%deck.length;
+    if(idx<deck.length&&deck[idx]&&deck[idx].bg){
+      const img=new Image();
+      img.src=deck[idx].bg;
+    }
   }
 }
 function showCard(){
@@ -1084,12 +1087,16 @@ function preloadCarousel(){
   const shuffled=[...whimsyBgs].sort(()=>Math.random()-0.5).slice(0,12);
   favCarousel.innerHTML='';
   carouselImgs=[];
+  let loadedCount=0;
   shuffled.forEach((src,i)=>{
     const img=new Image();
-    img.src=src;
     img.alt='';
     img.draggable=false;
-    if(i===0)img.classList.add('active');
+    img.onload=()=>{
+      loadedCount++;
+      if(loadedCount===1){img.classList.add('active');}
+    };
+    img.src=src;
     favCarousel.appendChild(img);
     carouselImgs.push(img);
   });
@@ -1103,7 +1110,20 @@ function startCarousel(){
     if(carouselImgs.length<2)return;
     carouselImgs[carouselIdx].classList.remove('active');
     carouselIdx=(carouselIdx+1)%carouselImgs.length;
-    carouselImgs[carouselIdx].classList.add('active');
+    // Only show if loaded
+    if(carouselImgs[carouselIdx].complete&&carouselImgs[carouselIdx].naturalWidth>0){
+      carouselImgs[carouselIdx].classList.add('active');
+    }else{
+      // Skip to next loaded one
+      for(let j=1;j<carouselImgs.length;j++){
+        const tryIdx=(carouselIdx+j)%carouselImgs.length;
+        if(carouselImgs[tryIdx].complete&&carouselImgs[tryIdx].naturalWidth>0){
+          carouselIdx=tryIdx;
+          carouselImgs[carouselIdx].classList.add('active');
+          break;
+        }
+      }
+    }
   },5000);
 }
 
@@ -1578,6 +1598,8 @@ cardArea.addEventListener('mousemove',e=>{
 // Init
 buildDeck();
 showCard();
+// Preload first 10 images on startup
+preloadNextImage();
 
 // Register SW
 if('serviceWorker' in navigator){
