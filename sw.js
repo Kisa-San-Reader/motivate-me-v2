@@ -1,4 +1,4 @@
-const CACHE_NAME = 'motivate-me-v2-cache-v7';
+const CACHE_NAME = 'motivate-me-v2-cache-v20';
 const urlsToCache = [
   './',
   './index.html',

@@ -9,6 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+button:focus,button:focus-visible{outline:none;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;font-family:Georgia,serif}
 body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 /* Phone emulation on desktop */
@@ -27,23 +28,43 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 .quote-text.light-scene{color:#2a1a1a;text-shadow:0 1px 8px rgba(255,255,255,0.5)}
 .hint{position:absolute;bottom:160px;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,0.5);z-index:11;transition:opacity 1s;font-style:italic}
 .hint.hidden{opacity:0;pointer-events:none}
-.actions{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:28px;align-items:center}
-.act-btn{width:50px;height:50px;border-radius:50%;border:none;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:22px;cursor:pointer;transition:transform .2s,background .2s;display:flex;align-items:center;justify-content:center;color:#fff}
-.act-btn:active{transform:scale(0.9)}
-.fav-btn.loved{color:#ff4466;font-size:26px;animation:heartPop .4s ease}
+.actions{position:absolute;bottom:70px;left:0;right:0;z-index:20;display:flex;gap:28px;align-items:center;justify-content:center}
+.act-btn{width:48px;height:48px;border-radius:50%;border:none;background:none;font-size:26px;cursor:pointer;transition:transform .2s;display:flex;align-items:center;justify-content:center;color:#fff;outline:none;-webkit-tap-highlight-color:transparent}
+.act-btn:active{transform:scale(0.85)}
+.fav-btn{font-size:28px;color:rgba(255,255,255,0.85)}
+.fav-btn.loved{color:#ff4466;animation:heartPop .4s ease}
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;z-index:30;display:flex;height:56px;background:rgba(10,10,20,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.08)}
-.nav-btn{flex:1;border:none;background:none;color:rgba(255,255,255,0.5);font-size:14px;cursor:pointer;font-family:Georgia,serif;transition:color .2s}
+.nav-btn{flex:1;border:none;background:none;color:rgba(255,255,255,0.5);font-size:14px;cursor:pointer;font-family:Georgia,serif;transition:color .2s;outline:none;-webkit-tap-highlight-color:transparent}
+.nav-btn:focus,.nav-btn:focus-visible{outline:none;box-shadow:none}
 .nav-btn.active{color:#fff}
-.fav-view{position:absolute;inset:0;z-index:25;background:rgba(10,10,26,0.97);padding:20px;padding-bottom:60px;overflow-y:auto}
+.fav-view{position:absolute;inset:0;z-index:25;overflow:hidden}
 .fav-view.hidden{display:none}
-.fav-header{text-align:center;margin:16px 0 24px;font-size:22px;font-weight:normal}
-.fav-list{display:flex;flex-direction:column;gap:12px}
-.fav-card{background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,0.06)}
-.fav-card-text{flex:1;font-style:italic;font-size:15px;line-height:1.5;color:rgba(255,255,255,0.85)}
-.fav-card-rm{width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,60,60,0.15);color:#ff6666;font-size:16px;cursor:pointer}
+.fav-carousel{position:absolute;inset:0;z-index:0;overflow:hidden}
+.fav-carousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out}
+.fav-carousel img.active{opacity:1}
+.fav-carousel::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);pointer-events:none}
+.fav-header{text-align:center;margin:0;padding:20px 0 12px;font-size:22px;font-weight:normal;position:relative;z-index:2;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,0.5);font-family:Georgia,serif}
+.fav-fixed-top{position:relative;z-index:2}
+.fav-list{position:absolute;top:120px;left:0;right:0;bottom:56px;z-index:1;overflow-y:auto;overflow-x:hidden;padding:0 20px 20px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
+.fav-card{background:rgba(255,255,255,0.45);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,215,0,0.4);position:relative;overflow:hidden;flex-shrink:0}
+.fav-card::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,215,0,0.8) 0%,transparent 100%),radial-gradient(1px 1px at 75% 20%,rgba(255,220,100,0.7) 0%,transparent 100%),radial-gradient(1px 1px at 40% 70%,rgba(255,200,50,0.6) 0%,transparent 100%),radial-gradient(1px 1px at 85% 65%,rgba(255,215,0,0.7) 0%,transparent 100%),radial-gradient(1px 1px at 55% 45%,rgba(255,230,120,0.5) 0%,transparent 100%),radial-gradient(1px 1px at 10% 80%,rgba(255,200,0,0.6) 0%,transparent 100%),radial-gradient(1px 1px at 90% 90%,rgba(255,215,0,0.5) 0%,transparent 100%);animation:sparkleShift 3s ease-in-out infinite alternate}
+@keyframes sparkleShift{0%{opacity:0.6}50%{opacity:1}100%{opacity:0.4}}
+.fav-card-text{flex:1;font-style:italic;font-size:15px;line-height:1.5;color:rgba(30,20,10,0.9);position:relative;z-index:1;font-family:Georgia,serif}
+.fav-card-rm{width:28px;height:28px;border:none;background:none;color:#ff4455;font-size:20px;font-weight:bold;cursor:pointer;position:relative;z-index:1;outline:none;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center}
+.play-fav-btn{width:52px;height:52px;font-size:28px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;outline:none;-webkit-tap-highlight-color:transparent;background:none;border:none;border-radius:0;box-shadow:none;color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(135deg,#ffd700,#ffaa00,#ffe066,#ffcc00);filter:drop-shadow(0 0 6px rgba(255,200,0,0.6)) drop-shadow(0 0 12px rgba(255,180,0,0.3));animation:glitterPulse 2s ease-in-out infinite}
+@keyframes glitterPulse{0%,100%{filter:drop-shadow(0 0 6px rgba(255,200,0,0.6)) drop-shadow(0 0 12px rgba(255,180,0,0.3))}50%{filter:drop-shadow(0 0 10px rgba(255,215,0,0.9)) drop-shadow(0 0 20px rgba(255,200,0,0.5))}}
+.mismatch-btn{font-size:24px}
+.mismatch-tooltip{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);background:rgba(20,20,40,0.92);color:rgba(255,255,255,0.9);font-size:12px;padding:8px 14px;border-radius:10px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .3s;z-index:40;font-family:Georgia,serif;border:1px solid rgba(255,255,255,0.1)}
+.mismatch-tooltip.show{opacity:1}
+.fairy-dust{position:absolute;pointer-events:none;z-index:45;border-radius:50%;animation:dustFade .8s ease-out forwards}
+@keyframes dustFade{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.2) translateY(-15px)}}
+.lightning-tear{position:absolute;inset:0;z-index:44;pointer-events:none}
+.lightning-tear canvas{position:absolute;inset:0;width:100%;height:100%}
+.lightning-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6);animation:overlayFade .8s ease-out forwards}
+@keyframes overlayFade{0%{opacity:1}60%{opacity:1}100%{opacity:0}}
 .heart-burst{position:absolute;z-index:50;pointer-events:none}
-.mini-heart{position:absolute;font-size:16px;animation:burstUp .8s ease forwards;opacity:0}
-@keyframes burstUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(0.5)}}
+.mini-heart{position:absolute;font-size:14px;animation:heartFloat 2s ease-out forwards;opacity:0}
+@keyframes heartFloat{0%{opacity:1;transform:translate(0,0) scale(1)}40%{opacity:1}100%{opacity:0;transform:translate(var(--hx),var(--hy)) scale(0.4)}}
 @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.7}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -212,8 +233,9 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 <div class="hint" id="hint">tap or swipe</div>
 </div>
 <div class="actions" id="actions">
-<button class="act-btn meh-btn" id="mehBtn">&#x1F636;</button>
-<button class="act-btn fav-btn" id="favBtn">&#x2661;</button>
+<button class="act-btn mismatch-btn" id="mismatchBtn">&#x26A1;</button>
+<button class="act-btn meh-btn" id="mehBtn">&#x1F44E;</button>
+<button class="act-btn fav-btn" id="favBtn">&#x2764;&#xFE0F;</button>
 <button class="act-btn snd-btn" id="sndBtn">&#x1F514;</button>
 </div>
 <nav class="bottom-nav" id="bottomNav">
@@ -221,8 +243,11 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 <button class="nav-btn" id="navFav">&#x2764;&#xFE0F; Favorites</button>
 </nav>
 <div class="fav-view hidden" id="favView">
+<div class="fav-carousel" id="favCarousel"></div>
+<div class="fav-fixed-top">
 <h2 class="fav-header">&#x2764;&#xFE0F; Favorites</h2>
-<button class="act-btn" id="playFavBtn" style="margin:0 auto 20px;display:block;width:56px;height:56px;font-size:26px">&#x25B6;</button>
+<button class="act-btn play-fav-btn" id="playFavBtn">&#x25B6;</button>
+</div>
 <div class="fav-list" id="favList"></div>
 </div>
 <div class="heart-burst" id="heartBurst"></div>
@@ -414,102 +439,102 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 {"text":"Let your oddness be your offering.","bg":"backgrounds/bg-183.png","particles":"glitter"},
 {"text":"You make the impossible look effortless.","bg":"backgrounds/bg-184.png","particles":"sparkles"},
 {"text":"Build your life brick by brick. Foundation first.","bg":"backgrounds/bg-185.png","particles":"glitter"},
-{"text":"You are the architect of your own destiny.","bg":"backgrounds/bg-186.png","particles":"sparkles"},
-{"text":"Strong foundations support the tallest ambitions.","bg":"backgrounds/bg-187.png","particles":"glitter"},
-{"text":"Your structure is beautiful because of what it endures.","bg":"backgrounds/bg-188.png","particles":"sparkles"},
-{"text":"Design a life you do not need a vacation from.","bg":"backgrounds/bg-189.png","particles":"glitter"},
-{"text":"You are both the blueprint and the masterpiece.","bg":"backgrounds/bg-190.png","particles":"sparkles"},
-{"text":"Every skyline started with a single beam of steel.","bg":"backgrounds/bg-191.png","particles":"glitter"},
+{"text":"You are the warmth in every room you enter.","bg":"backgrounds/bg-186.png","particles":"sparkles"},
+{"text":"Strong foundations support the coziest homes.","bg":"backgrounds/bg-187.png","particles":"glitter"},
+{"text":"Your space is beautiful because of the love it holds.","bg":"backgrounds/bg-188.png","particles":"sparkles"},
+{"text":"Design a life that feels like coming home.","bg":"backgrounds/bg-189.png","particles":"glitter"},
+{"text":"You are both the hearth and the fire.","bg":"backgrounds/bg-190.png","particles":"sparkles"},
+{"text":"The smallest corners hold the biggest warmth.","bg":"backgrounds/bg-191.png","particles":"glitter"},
 {"text":"Your resilience is your most elegant design.","bg":"backgrounds/bg-192.png","particles":"sparkles"},
-{"text":"The view is worth the climb.","bg":"backgrounds/bg-193.png","particles":"glitter"},
+{"text":"The best views are from windows you chose yourself.","bg":"backgrounds/bg-193.png","particles":"glitter"},
 {"text":"You are built to last.","bg":"backgrounds/bg-194.png","particles":"sparkles"},
-{"text":"Great architecture is honest. Be honest with yourself.","bg":"backgrounds/bg-195.png","particles":"glitter"},
-{"text":"Your life is under construction. That is okay.","bg":"backgrounds/bg-196.png","particles":"sparkles"},
-{"text":"The tallest buildings sway in the wind. Flexibility is strength.","bg":"backgrounds/bg-197.png","particles":"glitter"},
-{"text":"You are a cathedral of courage.","bg":"backgrounds/bg-198.png","particles":"sparkles"},
-{"text":"Every door that closes builds a wall that protects you.","bg":"backgrounds/bg-199.png","particles":"glitter"},
+{"text":"Great spaces are honest. Be honest with yourself.","bg":"backgrounds/bg-195.png","particles":"glitter"},
+{"text":"Your life is under renovation. That is beautiful.","bg":"backgrounds/bg-196.png","particles":"sparkles"},
+{"text":"The coziest corners are made with intention.","bg":"backgrounds/bg-197.png","particles":"glitter"},
+{"text":"You are a sanctuary of calm in a loud world.","bg":"backgrounds/bg-198.png","particles":"sparkles"},
+{"text":"Every door that closes leads you to a better room.","bg":"backgrounds/bg-199.png","particles":"glitter"},
 {"text":"Light always finds a way through.","bg":"backgrounds/bg-200.png","particles":"sparkles"},
-{"text":"Your framework can hold more than you think.","bg":"backgrounds/bg-201.png","particles":"glitter"},
-{"text":"Cities were built by people who refused to stop.","bg":"backgrounds/bg-202.png","particles":"sparkles"},
-{"text":"You are the bridge between where you are and where you are going.","bg":"backgrounds/bg-203.png","particles":"glitter"},
-{"text":"Rebuild as many times as you need. Each version is stronger.","bg":"backgrounds/bg-204.png","particles":"sparkles"},
+{"text":"Your space can hold more peace than you think.","bg":"backgrounds/bg-201.png","particles":"glitter"},
+{"text":"Beautiful things are built by those who refuse to settle.","bg":"backgrounds/bg-202.png","particles":"sparkles"},
+{"text":"You are the bridge between where you are and where you belong.","bg":"backgrounds/bg-203.png","particles":"glitter"},
+{"text":"Rebuild as many times as you need. Each version is home.","bg":"backgrounds/bg-204.png","particles":"sparkles"},
 {"text":"Every window is an invitation to see differently.","bg":"backgrounds/bg-205.png","particles":"glitter"},
-{"text":"You are a skyline in progress.","bg":"backgrounds/bg-206.png","particles":"sparkles"},
-{"text":"The stairs are there for those who choose to climb.","bg":"backgrounds/bg-207.png","particles":"glitter"},
-{"text":"Your perspective changes with elevation. Keep rising.","bg":"backgrounds/bg-208.png","particles":"sparkles"},
-{"text":"Structure does not limit. It liberates.","bg":"backgrounds/bg-209.png","particles":"glitter"},
-{"text":"You are the city that never sleeps on its dreams.","bg":"backgrounds/bg-210.png","particles":"sparkles"},
-{"text":"Every corridor leads somewhere. Keep walking.","bg":"backgrounds/bg-211.png","particles":"glitter"},
+{"text":"You are a quiet masterpiece in progress.","bg":"backgrounds/bg-206.png","particles":"sparkles"},
+{"text":"The stairs are there for those who choose to grow.","bg":"backgrounds/bg-207.png","particles":"glitter"},
+{"text":"Your perspective changes with every new room you enter.","bg":"backgrounds/bg-208.png","particles":"sparkles"},
+{"text":"A good structure does not limit. It holds you gently.","bg":"backgrounds/bg-209.png","particles":"glitter"},
+{"text":"You are the warm light in someone's favorite place.","bg":"backgrounds/bg-210.png","particles":"sparkles"},
+{"text":"Every corridor leads somewhere meaningful. Keep walking.","bg":"backgrounds/bg-211.png","particles":"glitter"},
 {"text":"Your life has rooms you have not discovered yet.","bg":"backgrounds/bg-212.png","particles":"sparkles"},
-{"text":"Walk through the gate of your fears.","bg":"backgrounds/bg-213.png","particles":"petals"},
-{"text":"Every path begins with a single step.","bg":"backgrounds/bg-214.png","particles":"fireflies"},
-{"text":"There is beauty in ancient wisdom.","bg":"backgrounds/bg-215.png","particles":"petals"},
-{"text":"Be still like a temple. Steady and sacred.","bg":"backgrounds/bg-216.png","particles":"diyas"},
-{"text":"The journey of a thousand miles starts here.","bg":"backgrounds/bg-217.png","particles":"petals"},
-{"text":"Honor where you have been. Embrace where you are going.","bg":"backgrounds/bg-218.png","particles":"fireflies"},
-{"text":"Simplicity is the ultimate sophistication.","bg":"backgrounds/bg-219.png","particles":"petals"},
-{"text":"You are a sanctuary of peace.","bg":"backgrounds/bg-220.png","particles":"diyas"},
-{"text":"Let the old stones teach you endurance.","bg":"backgrounds/bg-221.png","particles":"petals"},
-{"text":"Balance is not standing still. It is moving gracefully.","bg":"backgrounds/bg-222.png","particles":"fireflies"},
-{"text":"Sacred spaces exist within you.","bg":"backgrounds/bg-223.png","particles":"petals"},
-{"text":"The temple does not rush its prayer.","bg":"backgrounds/bg-224.png","particles":"diyas"},
-{"text":"Every gate you walk through transforms you.","bg":"backgrounds/bg-225.png","particles":"petals"},
-{"text":"Let discipline be your devotion.","bg":"backgrounds/bg-226.png","particles":"fireflies"},
-{"text":"You carry centuries of wisdom in your blood.","bg":"backgrounds/bg-227.png","particles":"petals"},
-{"text":"Peace is the architecture of the soul.","bg":"backgrounds/bg-228.png","particles":"diyas"},
-{"text":"Ancient walls still stand. So will you.","bg":"backgrounds/bg-229.png","particles":"petals"},
-{"text":"The pagoda reaches skyward one level at a time.","bg":"backgrounds/bg-230.png","particles":"fireflies"},
-{"text":"Your spirit is both ancient and eternal.","bg":"backgrounds/bg-231.png","particles":"petals"},
-{"text":"Find the sacred in the ordinary.","bg":"backgrounds/bg-232.png","particles":"diyas"},
-{"text":"The path is made by walking.","bg":"backgrounds/bg-233.png","particles":"petals"},
-{"text":"Every step on hallowed ground is a prayer.","bg":"backgrounds/bg-234.png","particles":"fireflies"},
-{"text":"You are a bridge between past and future.","bg":"backgrounds/bg-235.png","particles":"petals"},
-{"text":"Let tradition ground you. Let vision lift you.","bg":"backgrounds/bg-236.png","particles":"diyas"},
-{"text":"In the courtyard of your mind, plant only peace.","bg":"backgrounds/bg-237.png","particles":"petals"},
-{"text":"You are adorned with strength you cannot yet see.","bg":"backgrounds/bg-238.png","particles":"diyas"},
-{"text":"Every ornament tells a story. So does every scar.","bg":"backgrounds/bg-239.png","particles":"marigold"},
-{"text":"You are a palace. Do not let anyone treat you like a hut.","bg":"backgrounds/bg-240.png","particles":"diyas"},
-{"text":"The light within you is as grand as any temple.","bg":"backgrounds/bg-241.png","particles":"marigold"},
-{"text":"Your heritage is your superpower.","bg":"backgrounds/bg-242.png","particles":"diyas"},
-{"text":"Let your spirit be as intricate as carved stone.","bg":"backgrounds/bg-243.png","particles":"marigold"},
-{"text":"You are royalty. Crown yourself with kindness.","bg":"backgrounds/bg-244.png","particles":"diyas"},
-{"text":"Every arch was designed to hold weight. So were you.","bg":"backgrounds/bg-245.png","particles":"marigold"},
-{"text":"Your beauty is both bold and delicate.","bg":"backgrounds/bg-246.png","particles":"diyas"},
-{"text":"The most ornate doors lead to the greatest treasures.","bg":"backgrounds/bg-247.png","particles":"marigold"},
-{"text":"You are a monument to everything you have overcome.","bg":"backgrounds/bg-248.png","particles":"diyas"},
-{"text":"Let your inner palace be decorated with peace.","bg":"backgrounds/bg-249.png","particles":"marigold"},
-{"text":"Your foundation was laid with love and intention.","bg":"backgrounds/bg-250.png","particles":"diyas"},
-{"text":"Like ancient domes, you hold space for the sacred.","bg":"backgrounds/bg-251.png","particles":"marigold"},
-{"text":"You are carved from strength and polished by time.","bg":"backgrounds/bg-252.png","particles":"diyas"},
-{"text":"Every pillar in your life holds up something important.","bg":"backgrounds/bg-253.png","particles":"marigold"},
-{"text":"Your spirit is as colorful as a festival.","bg":"backgrounds/bg-254.png","particles":"diyas"},
-{"text":"The grandest structures honor both earth and sky.","bg":"backgrounds/bg-255.png","particles":"marigold"},
-{"text":"You are the jewel in the crown of the universe.","bg":"backgrounds/bg-256.png","particles":"diyas"},
-{"text":"Let your life be a masterwork of love and labor.","bg":"backgrounds/bg-257.png","particles":"marigold"},
-{"text":"Your soul is as vast as a courtyard open to the sky.","bg":"backgrounds/bg-258.png","particles":"diyas"},
-{"text":"The carvings of your life tell a story of devotion.","bg":"backgrounds/bg-259.png","particles":"marigold"},
-{"text":"You are the light that enters through stained glass.","bg":"backgrounds/bg-260.png","particles":"diyas"},
+{"text":"Walk through the torii gate of your fears and find peace.","bg":"backgrounds/bg-213.png","particles":"petals"},
+{"text":"Every path through the garden begins with a single step.","bg":"backgrounds/bg-214.png","particles":"fireflies"},
+{"text":"There is beauty in ancient grace. You carry it too.","bg":"backgrounds/bg-215.png","particles":"petals"},
+{"text":"Be still like a pagoda. Steady through every storm.","bg":"backgrounds/bg-216.png","particles":"diyas"},
+{"text":"The journey of a thousand li starts beneath your feet.","bg":"backgrounds/bg-217.png","particles":"petals"},
+{"text":"Honor where you have been. Embrace where the wind carries you.","bg":"backgrounds/bg-218.png","particles":"fireflies"},
+{"text":"Simplicity is the mark of mastery.","bg":"backgrounds/bg-219.png","particles":"petals"},
+{"text":"You are a sanctuary of peace among the cherry blossoms.","bg":"backgrounds/bg-220.png","particles":"diyas"},
+{"text":"Let the ancient stones teach you patience and endurance.","bg":"backgrounds/bg-221.png","particles":"petals"},
+{"text":"Balance is found in the space between silence and movement.","bg":"backgrounds/bg-222.png","particles":"fireflies"},
+{"text":"Sacred spaces exist within you like hidden courtyards.","bg":"backgrounds/bg-223.png","particles":"petals"},
+{"text":"The temple bell rings for those who are ready to listen.","bg":"backgrounds/bg-224.png","particles":"diyas"},
+{"text":"Every gate you walk through transforms who you are.","bg":"backgrounds/bg-225.png","particles":"petals"},
+{"text":"Let discipline be your quiet devotion.","bg":"backgrounds/bg-226.png","particles":"fireflies"},
+{"text":"You carry the wisdom of dynasties in your spirit.","bg":"backgrounds/bg-227.png","particles":"petals"},
+{"text":"Peace is the architecture of a well-tended soul.","bg":"backgrounds/bg-228.png","particles":"diyas"},
+{"text":"Ancient walls still stand after centuries. So will you.","bg":"backgrounds/bg-229.png","particles":"petals"},
+{"text":"The pagoda reaches skyward one graceful tier at a time.","bg":"backgrounds/bg-230.png","particles":"fireflies"},
+{"text":"Your spirit is both ancient and forever unfolding.","bg":"backgrounds/bg-231.png","particles":"petals"},
+{"text":"Find the sacred in the ordinary, like moss on temple stone.","bg":"backgrounds/bg-232.png","particles":"diyas"},
+{"text":"The path is made by walking. Keep going.","bg":"backgrounds/bg-233.png","particles":"petals"},
+{"text":"Every lantern-lit step is a prayer for what comes next.","bg":"backgrounds/bg-234.png","particles":"fireflies"},
+{"text":"You are a bridge between what was and what will be.","bg":"backgrounds/bg-235.png","particles":"petals"},
+{"text":"Let tradition ground you. Let dreams carry you forward.","bg":"backgrounds/bg-236.png","particles":"diyas"},
+{"text":"In the courtyard of your mind, plant only what brings peace.","bg":"backgrounds/bg-237.png","particles":"petals"},
+{"text":"You are adorned with strength the world cannot yet see.","bg":"backgrounds/bg-238.png","particles":"diyas"},
+{"text":"Every ornament tells a story. So does every scar you carry.","bg":"backgrounds/bg-239.png","particles":"marigold"},
+{"text":"You are a palace of devotion. Never let anyone diminish that.","bg":"backgrounds/bg-240.png","particles":"diyas"},
+{"text":"The light within you is as grand as any carved sanctum.","bg":"backgrounds/bg-241.png","particles":"marigold"},
+{"text":"Your heritage is woven into every fibre of your being.","bg":"backgrounds/bg-242.png","particles":"diyas"},
+{"text":"Let your spirit be as intricate as temple carvings in stone.","bg":"backgrounds/bg-243.png","particles":"marigold"},
+{"text":"You are royalty sculpted from centuries of grace.","bg":"backgrounds/bg-244.png","particles":"diyas"},
+{"text":"Every arch was designed to hold sacred weight. So were you.","bg":"backgrounds/bg-245.png","particles":"marigold"},
+{"text":"Your beauty is both fierce and delicate, like gopuram towers.","bg":"backgrounds/bg-246.png","particles":"diyas"},
+{"text":"The most ornate doors lead to the greatest inner treasures.","bg":"backgrounds/bg-247.png","particles":"marigold"},
+{"text":"You are a monument to everything you have survived and blessed.","bg":"backgrounds/bg-248.png","particles":"diyas"},
+{"text":"Let your inner temple be adorned with peace and devotion.","bg":"backgrounds/bg-249.png","particles":"marigold"},
+{"text":"Your foundation was laid with prayer and loving intention.","bg":"backgrounds/bg-250.png","particles":"diyas"},
+{"text":"Like ancient domes, you hold space for the divine within.","bg":"backgrounds/bg-251.png","particles":"marigold"},
+{"text":"You are carved from strength and polished by lifetimes.","bg":"backgrounds/bg-252.png","particles":"diyas"},
+{"text":"Every pillar in your life holds something sacred aloft.","bg":"backgrounds/bg-253.png","particles":"marigold"},
+{"text":"Your spirit is as vibrant as a festival of lights.","bg":"backgrounds/bg-254.png","particles":"diyas"},
+{"text":"The grandest temples honor both earth and sky. So do you.","bg":"backgrounds/bg-255.png","particles":"marigold"},
+{"text":"You are the jewel set into the crown of the cosmos.","bg":"backgrounds/bg-256.png","particles":"diyas"},
+{"text":"Let your life be a masterwork of devotion and grace.","bg":"backgrounds/bg-257.png","particles":"marigold"},
+{"text":"Your soul is as vast as a mandapa open to the heavens.","bg":"backgrounds/bg-258.png","particles":"diyas"},
+{"text":"The sculptures of your life tell a story of perseverance.","bg":"backgrounds/bg-259.png","particles":"marigold"},
+{"text":"You are the divine light entering through carved stone.","bg":"backgrounds/bg-260.png","particles":"diyas"},
 {"text":"Every cobblestone was placed with purpose. So are your steps.","bg":"backgrounds/bg-261.png","particles":"sparkles"},
-{"text":"You are a story waiting to be explored.","bg":"backgrounds/bg-262.png","particles":"fireflies"},
+{"text":"You are a story from an ancient world, still being told.","bg":"backgrounds/bg-262.png","particles":"fireflies"},
 {"text":"Old streets know: the journey matters more than the speed.","bg":"backgrounds/bg-263.png","particles":"sparkles"},
-{"text":"Your charm is timeless.","bg":"backgrounds/bg-264.png","particles":"glitter"},
-{"text":"Let your life have the warmth of a café at dusk.","bg":"backgrounds/bg-265.png","particles":"sparkles"},
-{"text":"You are classic. Never outdated.","bg":"backgrounds/bg-266.png","particles":"glitter"},
+{"text":"Your charm is timeless, like columns in the golden light.","bg":"backgrounds/bg-264.png","particles":"glitter"},
+{"text":"You deserve the grandeur of a life well lived.","bg":"backgrounds/bg-265.png","particles":"sparkles"},
+{"text":"You are classic. Never outdated. Always unfolding.","bg":"backgrounds/bg-266.png","particles":"glitter"},
 {"text":"The arches above you were built to endure. So were you.","bg":"backgrounds/bg-267.png","particles":"sparkles"},
-{"text":"Wander without being lost.","bg":"backgrounds/bg-268.png","particles":"fireflies"},
-{"text":"Your life has the elegance of a handwritten letter.","bg":"backgrounds/bg-269.png","particles":"glitter"},
-{"text":"Every balcony is an invitation to see beauty.","bg":"backgrounds/bg-270.png","particles":"sparkles"},
-{"text":"You are the golden hour in an ancient city.","bg":"backgrounds/bg-271.png","particles":"glitter"},
-{"text":"Let history remind you: humans endure everything.","bg":"backgrounds/bg-272.png","particles":"sparkles"},
-{"text":"Your depth is your romance.","bg":"backgrounds/bg-273.png","particles":"fireflies"},
-{"text":"Some things grow more beautiful with time. You are one of them.","bg":"backgrounds/bg-274.png","particles":"glitter"},
-{"text":"Every doorway is a new beginning.","bg":"backgrounds/bg-275.png","particles":"sparkles"},
-{"text":"You are a masterpiece framed by time.","bg":"backgrounds/bg-276.png","particles":"glitter"},
-{"text":"Let your life tell a story worth retelling.","bg":"backgrounds/bg-277.png","particles":"sparkles"},
-{"text":"The bell towers ring for those who listen.","bg":"backgrounds/bg-278.png","particles":"fireflies"},
-{"text":"You carry old-world grace in a modern soul.","bg":"backgrounds/bg-279.png","particles":"glitter"},
-{"text":"Every street corner holds a possibility.","bg":"backgrounds/bg-280.png","particles":"sparkles"},
-{"text":"You are the poetry in the architecture of life.","bg":"backgrounds/bg-281.png","particles":"glitter"},
+{"text":"Wander like a protagonist through your own epic.","bg":"backgrounds/bg-268.png","particles":"fireflies"},
+{"text":"Your life has the elegance of a marble hall at dusk.","bg":"backgrounds/bg-269.png","particles":"glitter"},
+{"text":"Every balcony is an invitation to witness your own beauty.","bg":"backgrounds/bg-270.png","particles":"sparkles"},
+{"text":"You are the golden hour in a kingdom of your own making.","bg":"backgrounds/bg-271.png","particles":"glitter"},
+{"text":"Let history remind you: the human spirit outlasts empires.","bg":"backgrounds/bg-272.png","particles":"sparkles"},
+{"text":"Your depth is your romance, your scars your crown.","bg":"backgrounds/bg-273.png","particles":"fireflies"},
+{"text":"Some things grow more legendary with time. You are one.","bg":"backgrounds/bg-274.png","particles":"glitter"},
+{"text":"Every doorway is a portal to a braver version of you.","bg":"backgrounds/bg-275.png","particles":"sparkles"},
+{"text":"You are a masterpiece framed by centuries of stars.","bg":"backgrounds/bg-276.png","particles":"glitter"},
+{"text":"Let your life tell a tale worth retelling around fires.","bg":"backgrounds/bg-277.png","particles":"sparkles"},
+{"text":"The bell towers ring for those who choose to listen.","bg":"backgrounds/bg-278.png","particles":"fireflies"},
+{"text":"You carry old-world grace in a soul made for adventure.","bg":"backgrounds/bg-279.png","particles":"glitter"},
+{"text":"Every corner holds the possibility of something enchanted.","bg":"backgrounds/bg-280.png","particles":"sparkles"},
+{"text":"You are the poetry written into the stones of this world.","bg":"backgrounds/bg-281.png","particles":"glitter"},
 {"text":"You are the mood the world needs right now.","bg":"backgrounds/bg-282.png","particles":"glitter"},
 {"text":"Let your essence be felt before you are seen.","bg":"backgrounds/bg-283.png","particles":"sparkles"},
 {"text":"Your energy paints rooms in colors no one can name.","bg":"backgrounds/bg-284.png","particles":"iridescent"},
@@ -534,7 +559,206 @@ body{background:#000;color:#fff;touch-action:pan-y;user-select:none;-webkit-user
 {"text":"Your petals unfold at their own pace.","bg":"backgrounds/bg-303.png","particles":"magnolia"},
 {"text":"Even the most delicate flower holds fierce life.","bg":"backgrounds/bg-304.png","particles":"rose"},
 {"text":"You are the fragrance that lingers after.","bg":"backgrounds/bg-305.png","particles":"petals"},
-{"text":"Savor every moment. Life is meant to be tasted.","bg":"backgrounds/bg-306.png","particles":"glitter"}
+{"text":"Savor every moment. Life is meant to be tasted.","bg":"backgrounds/bg-306.png","particles":"glitter"},
+{"text":"The night reminds you that rest is sacred, not selfish.","bg":"backgrounds/bg-307.png","particles":"stars-big"},
+{"text":"You deserve the same tenderness you give to the stars.","bg":"backgrounds/bg-308.png","particles":"fireflies"},
+{"text":"Let the darkness hold you. It knows how to keep you safe.","bg":"backgrounds/bg-309.png","particles":"glitter"},
+{"text":"Your quiet moments are where your power lives.","bg":"backgrounds/bg-310.png","particles":"stars-big"},
+{"text":"The night sky never apologizes for being vast. Neither should you.","bg":"backgrounds/bg-311.png","particles":"sparkles"},
+{"text":"You are the ocean: deep, powerful, and endlessly beautiful.","bg":"backgrounds/bg-312.png","particles":"water-sparkle"},
+{"text":"Let your worries dissolve like foam on the shore.","bg":"backgrounds/bg-313.png","particles":"bubbles"},
+{"text":"Your emotions are waves. Let them move through you.","bg":"backgrounds/bg-314.png","particles":"water-sparkle"},
+{"text":"Be fluid like water. You can soften even the hardest stone.","bg":"backgrounds/bg-315.png","particles":"iridescent"},
+{"text":"The tide always returns. So will your strength.","bg":"backgrounds/bg-316.png","particles":"water-sparkle"},
+{"text":"You are allowed to take up space, like the sea takes up the horizon.","bg":"backgrounds/bg-317.png","particles":"bubbles"},
+{"text":"Still waters run deep. Your calm holds unimaginable power.","bg":"backgrounds/bg-318.png","particles":"water-sparkle"},
+{"text":"Every wave that crashes is proof that starting over is natural.","bg":"backgrounds/bg-319.png","particles":"iridescent"},
+{"text":"The ocean never stops singing. Let your heart do the same.","bg":"backgrounds/bg-320.png","particles":"bubbles"},
+{"text":"You are worthy of the same vastness you admire in the sea.","bg":"backgrounds/bg-321.png","particles":"water-sparkle"},
+{"text":"Grow at your own pace. Even ancient trees started as seeds.","bg":"backgrounds/bg-322.png","particles":"leaf"},
+{"text":"You are blooming exactly where you are supposed to be.","bg":"backgrounds/bg-323.png","particles":"mist"},
+{"text":"Your roots go deeper than you think. Trust them.","bg":"backgrounds/bg-324.png","particles":"leaf"},
+{"text":"Breathe in the green. Let nature remind you to just be.","bg":"backgrounds/bg-325.png","particles":"mist"},
+{"text":"Even tangled vines find the light. So will you.","bg":"backgrounds/bg-326.png","particles":"fall-leaves"},
+{"text":"You are not lost. You are growing in a new direction.","bg":"backgrounds/bg-327.png","particles":"leaf"},
+{"text":"The forest does not rush. It simply becomes.","bg":"backgrounds/bg-328.png","particles":"mist"},
+{"text":"Every season of your life has something beautiful to offer.","bg":"backgrounds/bg-329.png","particles":"fall-leaves"},
+{"text":"You are magic wrapped in skin and stardust.","bg":"backgrounds/bg-330.png","particles":"glitter"},
+{"text":"Your existence is art. No frame required.","bg":"backgrounds/bg-331.png","particles":"iridescent"},
+{"text":"Soft does not mean weak. Soft means brave enough to feel.","bg":"backgrounds/bg-332.png","particles":"sparkles"},
+{"text":"You deserve the love you keep giving to everyone else.","bg":"backgrounds/bg-333.png","particles":"glitter"},
+{"text":"Your heart is a garden. Tend to it gently.","bg":"backgrounds/bg-334.png","particles":"iridescent"},
+{"text":"There is power in being gentle with yourself.","bg":"backgrounds/bg-335.png","particles":"sparkles"},
+{"text":"You are not too much. The world just was not ready for your light.","bg":"backgrounds/bg-336.png","particles":"glitter"},
+{"text":"Let yourself be enchanted by your own becoming.","bg":"backgrounds/bg-337.png","particles":"iridescent"},
+{"text":"Your softness is your superpower. Guard it well.","bg":"backgrounds/bg-338.png","particles":"sparkles"},
+{"text":"You are the dream someone has not dared to dream yet.","bg":"backgrounds/bg-339.png","particles":"glitter"},
+{"text":"Healing is not linear. Every step counts.","bg":"backgrounds/bg-340.png","particles":"iridescent"},
+{"text":"You glow differently when you love yourself first.","bg":"backgrounds/bg-341.png","particles":"glitter"},
+{"text":"The universe conspires in favor of those who believe in themselves.","bg":"backgrounds/bg-342.png","particles":"sparkles"},
+{"text":"Your story is still being written. Make it beautiful.","bg":"backgrounds/bg-343.png","particles":"iridescent"},
+{"text":"You are the main character. Act like it.","bg":"backgrounds/bg-344.png","particles":"glitter"},
+{"text":"Self-love is not selfish. It is survival.","bg":"backgrounds/bg-345.png","particles":"sparkles"},
+{"text":"Give yourself permission to outgrow who you used to be.","bg":"backgrounds/bg-346.png","particles":"iridescent"},
+{"text":"You are worthy of the same compassion you give others.","bg":"backgrounds/bg-347.png","particles":"glitter"},
+{"text":"Embrace the mess. That is where the magic hides.","bg":"backgrounds/bg-348.png","particles":"sparkles"},
+{"text":"Your scars are proof that you chose to stay. That is everything.","bg":"backgrounds/bg-349.png","particles":"iridescent"},
+{"text":"You are not behind. You are on your own timeline.","bg":"backgrounds/bg-350.png","particles":"glitter"},
+{"text":"Let go of perfect. Embrace whole.","bg":"backgrounds/bg-351.png","particles":"sparkles"},
+{"text":"You carry light in places the world forgot to look.","bg":"backgrounds/bg-352.png","particles":"iridescent"},
+{"text":"Being yourself is the most radical thing you can do.","bg":"backgrounds/bg-353.png","particles":"glitter"},
+{"text":"Your potential does not have an expiration date.","bg":"backgrounds/bg-354.png","particles":"sparkles"},
+{"text":"You are allowed to be both a masterpiece and a work in progress.","bg":"backgrounds/bg-355.png","particles":"iridescent"},
+{"text":"Celebrate who you are. The world needs your specific magic.","bg":"backgrounds/bg-356.png","particles":"glitter"},
+{"text":"Rest is not quitting. It is choosing yourself.","bg":"backgrounds/bg-357.png","particles":"sparkles"},
+{"text":"You were never meant to fit in. You were born to glow.","bg":"backgrounds/bg-358.png","particles":"iridescent"},
+{"text":"The bravest thing you can do is love yourself loudly.","bg":"backgrounds/bg-359.png","particles":"glitter"},
+{"text":"Your energy is precious. Spend it where you bloom.","bg":"backgrounds/bg-360.png","particles":"sparkles"},
+{"text":"You are not your mistakes. You are your comebacks.","bg":"backgrounds/bg-361.png","particles":"iridescent"},
+{"text":"Darling, you were never ordinary. Stop pretending to be.","bg":"backgrounds/bg-362.png","particles":"glitter"},
+{"text":"Choose joy as often as you choose to breathe.","bg":"backgrounds/bg-363.png","particles":"sparkles"},
+{"text":"You have survived every hard day so far. That is a perfect record.","bg":"backgrounds/bg-364.png","particles":"iridescent"},
+{"text":"Your worth is not up for debate. It simply is.","bg":"backgrounds/bg-365.png","particles":"glitter"},
+{"text":"Let yourself be found by the things that make you feel alive.","bg":"backgrounds/bg-366.png","particles":"sparkles"},
+{"text":"You hold entire galaxies within your chest. Remember that.","bg":"backgrounds/bg-367.png","particles":"iridescent"},
+{"text":"Boundaries are love letters you write to yourself.","bg":"backgrounds/bg-368.png","particles":"glitter"},
+{"text":"You do not need permission to take care of yourself.","bg":"backgrounds/bg-369.png","particles":"sparkles"},
+{"text":"The right people will love the parts of you that you hide.","bg":"backgrounds/bg-370.png","particles":"iridescent"},
+{"text":"Your healing matters more than their comfort.","bg":"backgrounds/bg-371.png","particles":"glitter"},
+{"text":"Be the love you never received.","bg":"backgrounds/bg-372.png","particles":"sparkles"},
+{"text":"You are enough. You have always been enough.","bg":"backgrounds/bg-373.png","particles":"iridescent"},
+{"text":"Protect your peace like it is the most precious thing you own.","bg":"backgrounds/bg-374.png","particles":"glitter"},
+{"text":"You are not starting over. You are starting stronger.","bg":"backgrounds/bg-375.png","particles":"sparkles"},
+{"text":"Your gentleness has changed more lives than you know.","bg":"backgrounds/bg-376.png","particles":"iridescent"},
+{"text":"There is no wrong way to heal. Just keep going.","bg":"backgrounds/bg-377.png","particles":"glitter"},
+{"text":"You belong here. Fully. Completely. Without apology.","bg":"backgrounds/bg-378.png","particles":"sparkles"},
+{"text":"Inhale self-love. Exhale self-doubt.","bg":"backgrounds/bg-379.png","particles":"iridescent"},
+{"text":"You are someone's reason to believe in good people.","bg":"backgrounds/bg-380.png","particles":"glitter"},
+{"text":"Trust the timing of your life. It knows what it is doing.","bg":"backgrounds/bg-381.png","particles":"sparkles"},
+{"text":"Your presence is a gift. Never let anyone convince you otherwise.","bg":"backgrounds/bg-382.png","particles":"iridescent"},
+{"text":"You are the kind of beautiful that grows from within.","bg":"backgrounds/bg-383.png","particles":"glitter"},
+{"text":"Every time you chose yourself, the universe cheered.","bg":"backgrounds/bg-384.png","particles":"sparkles"},
+{"text":"You do not owe anyone a smaller version of yourself.","bg":"backgrounds/bg-385.png","particles":"iridescent"},
+{"text":"Your inner child is so proud of who you are becoming.","bg":"backgrounds/bg-386.png","particles":"glitter"},
+{"text":"The love you seek is already living inside you.","bg":"backgrounds/bg-387.png","particles":"sparkles"},
+{"text":"Be patient with yourself. You are unlearning a lifetime of patterns.","bg":"backgrounds/bg-388.png","particles":"iridescent"},
+{"text":"You radiate warmth just by being you. That is rare.","bg":"backgrounds/bg-389.png","particles":"glitter"},
+{"text":"Your feelings are valid. All of them. Even the messy ones.","bg":"backgrounds/bg-390.png","particles":"sparkles"},
+{"text":"You are writing a love story. It starts with you.","bg":"backgrounds/bg-391.png","particles":"iridescent"},
+{"text":"Choosing yourself is not selfish. It is self-full.","bg":"backgrounds/bg-392.png","particles":"glitter"},
+{"text":"Your soul knows the way. Let it lead.","bg":"backgrounds/bg-393.png","particles":"sparkles"},
+{"text":"You are worthy of slow mornings and soft love.","bg":"backgrounds/bg-394.png","particles":"iridescent"},
+{"text":"Let your heart be lighter than the worries you carry.","bg":"backgrounds/bg-395.png","particles":"glitter"},
+{"text":"The best relationship you will ever have is with yourself.","bg":"backgrounds/bg-396.png","particles":"sparkles"},
+{"text":"You are not too sensitive. You are deeply alive.","bg":"backgrounds/bg-397.png","particles":"iridescent"},
+{"text":"Grace yourself. Growth takes time and that is okay.","bg":"backgrounds/bg-398.png","particles":"glitter"},
+{"text":"Your heart deserves the same love it so freely gives.","bg":"backgrounds/bg-399.png","particles":"sparkles"},
+{"text":"You are proof that soft things can be unbreakable.","bg":"backgrounds/bg-400.png","particles":"iridescent"},
+{"text":"The most beautiful spaces are made with care and quiet intention.","bg":"backgrounds/bg-401.png","particles":"glitter"},
+{"text":"Your vision is valid. Build the life that feels like warmth.","bg":"backgrounds/bg-402.png","particles":"sparkles"},
+{"text":"You are the author of every room you walk into.","bg":"backgrounds/bg-403.png","particles":"glitter"},
+{"text":"Settle into yourself like sunlight settles into a window.","bg":"backgrounds/bg-404.png","particles":"sparkles"},
+{"text":"Clean lines, clear mind. Simplicity is strength.","bg":"backgrounds/bg-405.png","particles":"glitter"},
+{"text":"Your foundation matters. Build on truth and self-worth.","bg":"backgrounds/bg-406.png","particles":"sparkles"},
+{"text":"You deserve a life that feels like a deep breath.","bg":"backgrounds/bg-407.png","particles":"glitter"},
+{"text":"You are not a finished project. You are a living space.","bg":"backgrounds/bg-408.png","particles":"sparkles"},
+{"text":"Structure and softness can coexist within you.","bg":"backgrounds/bg-409.png","particles":"glitter"},
+{"text":"Build your life with intention, corner by gentle corner.","bg":"backgrounds/bg-410.png","particles":"sparkles"},
+{"text":"Your comfort is not laziness. It is wisdom.","bg":"backgrounds/bg-411.png","particles":"glitter"},
+{"text":"Every cozy place began as an empty room and a dream.","bg":"backgrounds/bg-412.png","particles":"sparkles"},
+{"text":"You are both soft and solid. Warmth and walls.","bg":"backgrounds/bg-413.png","particles":"glitter"},
+{"text":"Let your life reflect the beauty of thoughtful choices.","bg":"backgrounds/bg-414.png","particles":"sparkles"},
+{"text":"You are built to hold peace. Remember that on restless days.","bg":"backgrounds/bg-415.png","particles":"glitter"},
+{"text":"Slow down. The good things are found in the quiet.","bg":"backgrounds/bg-416.png","particles":"sparkles"},
+{"text":"Your edges are not flaws. They are character.","bg":"backgrounds/bg-417.png","particles":"glitter"},
+{"text":"You can be both modern and timeless.","bg":"backgrounds/bg-418.png","particles":"sparkles"},
+{"text":"Rearrange as many times as you need. Each version is valid.","bg":"backgrounds/bg-419.png","particles":"glitter"},
+{"text":"Home is wherever you decide to be fully yourself.","bg":"backgrounds/bg-420.png","particles":"sparkles"},
+{"text":"You are a masterclass in making anywhere feel like home.","bg":"backgrounds/bg-421.png","particles":"glitter"},
+{"text":"Honor the path that brought you here, like incense honors the air.","bg":"backgrounds/bg-422.png","particles":"petals"},
+{"text":"There is ancient wisdom in the space between breaths.","bg":"backgrounds/bg-423.png","particles":"fireflies"},
+{"text":"You carry the quiet strength of a thousand temple bells.","bg":"backgrounds/bg-424.png","particles":"petals"},
+{"text":"Still your mind like a garden pond. Clarity follows.","bg":"backgrounds/bg-425.png","particles":"fireflies"},
+{"text":"Harmony begins where the lanterns glow within.","bg":"backgrounds/bg-426.png","particles":"petals"},
+{"text":"You are a temple of devotion. Worship yourself with tenderness.","bg":"backgrounds/bg-427.png","particles":"diyas"},
+{"text":"Your heritage is a crown of carved stone and golden light.","bg":"backgrounds/bg-428.png","particles":"marigold"},
+{"text":"Let your inner flame outshine the tallest temple spire.","bg":"backgrounds/bg-429.png","particles":"diyas"},
+{"text":"You are sacred geometry. Every part of you is intentional.","bg":"backgrounds/bg-430.png","particles":"marigold"},
+{"text":"The light within you knows no boundary. It simply radiates.","bg":"backgrounds/bg-431.png","particles":"diyas"},
+{"text":"You carry the resilience of sculpted deities in your smile.","bg":"backgrounds/bg-432.png","particles":"marigold"},
+{"text":"Let devotion to your own peace be your daily offering.","bg":"backgrounds/bg-433.png","particles":"diyas"},
+{"text":"There is romance in choosing yourself like a hero chooses their quest.","bg":"backgrounds/bg-434.png","particles":"sparkles"},
+{"text":"You deserve a love story as grand as a castle in the mist.","bg":"backgrounds/bg-435.png","particles":"glitter"},
+{"text":"Walk through life like royalty through candlelit halls.","bg":"backgrounds/bg-436.png","particles":"fireflies"},
+{"text":"You are timeless. No era could contain your spirit.","bg":"backgrounds/bg-437.png","particles":"sparkles"},
+{"text":"You are wild and free. Never let anyone cage your spirit.","bg":"backgrounds/bg-438.png","particles":"butterflies"},
+{"text":"Be untamed. The world needs your unfiltered truth.","bg":"backgrounds/bg-439.png","particles":"fireflies"},
+{"text":"Your instincts are powerful. Trust the animal wisdom within.","bg":"backgrounds/bg-440.png","particles":"butterflies"},
+{"text":"You are allowed to be fierce and gentle in the same breath.","bg":"backgrounds/bg-441.png","particles":"fireflies"},
+{"text":"Let your spirit run wild. Freedom looks beautiful on you.","bg":"backgrounds/bg-442.png","particles":"butterflies"},
+{"text":"You are part of something greater than you can see.","bg":"backgrounds/bg-443.png","particles":"fireflies"},
+{"text":"Loyalty to yourself is the truest form of devotion.","bg":"backgrounds/bg-444.png","particles":"butterflies"},
+{"text":"Move with grace. Even the quietest creatures command attention.","bg":"backgrounds/bg-445.png","particles":"fireflies"},
+{"text":"Your presence is magnetic. Own the room.","bg":"backgrounds/bg-446.png","particles":"butterflies"},
+{"text":"Be curious. The world has so many wonders left to show you.","bg":"backgrounds/bg-447.png","particles":"fireflies"},
+{"text":"You are both the protector and the protected. Honor both.","bg":"backgrounds/bg-448.png","particles":"butterflies"},
+{"text":"Strength is silent. Confidence needs no roar.","bg":"backgrounds/bg-449.png","particles":"fireflies"},
+{"text":"Your soul is as vast as the wild places you love.","bg":"backgrounds/bg-450.png","particles":"butterflies"},
+{"text":"Adaptability is your gift. You thrive anywhere.","bg":"backgrounds/bg-451.png","particles":"fireflies"},
+{"text":"There is dignity in every creature. Including you.","bg":"backgrounds/bg-452.png","particles":"butterflies"},
+{"text":"You do not need to prove your worth to anyone but yourself.","bg":"backgrounds/bg-453.png","particles":"fireflies"},
+{"text":"Let your heart be brave like the ones who run at dawn.","bg":"backgrounds/bg-454.png","particles":"butterflies"},
+{"text":"You deserve tenderness. Even tigers rest.","bg":"backgrounds/bg-455.png","particles":"fireflies"},
+{"text":"Your gentleness is not weakness. It takes strength to be soft.","bg":"backgrounds/bg-456.png","particles":"butterflies"},
+{"text":"Like migratory birds, you always find your way home to yourself.","bg":"backgrounds/bg-457.png","particles":"fireflies"},
+{"text":"You are beautifully complex. Embrace every shade of you.","bg":"backgrounds/bg-458.png","particles":"butterflies"},
+{"text":"Trust your instincts. They have kept you alive this long.","bg":"backgrounds/bg-459.png","particles":"fireflies"},
+{"text":"You carry the patience of mountains and the courage of wolves.","bg":"backgrounds/bg-460.png","particles":"butterflies"},
+{"text":"Every creature belongs in this world. So do you.","bg":"backgrounds/bg-461.png","particles":"fireflies"},
+{"text":"You are blooming. Even on days it does not feel like it.","bg":"backgrounds/bg-462.png","particles":"petals"},
+{"text":"Let yourself unfold at your own pace. Flowers never rush.","bg":"backgrounds/bg-463.png","particles":"rose"},
+{"text":"Your beauty grows with every challenge you overcome.","bg":"backgrounds/bg-464.png","particles":"petals"},
+{"text":"Be rooted in self-love and watch yourself flourish.","bg":"backgrounds/bg-465.png","particles":"lily"},
+{"text":"Every petal you shed makes room for new growth.","bg":"backgrounds/bg-466.png","particles":"magnolia"},
+{"text":"You are a garden of resilience. Keep tending to yourself.","bg":"backgrounds/bg-467.png","particles":"petals"},
+{"text":"Bloom where you are planted, but do not be afraid to be replanted.","bg":"backgrounds/bg-468.png","particles":"rose"},
+{"text":"Your vulnerability is what makes you beautiful.","bg":"backgrounds/bg-469.png","particles":"petals"},
+{"text":"Even wilted flowers find their way back to the sun.","bg":"backgrounds/bg-470.png","particles":"lily"},
+{"text":"You are the kind of beauty that grows from the inside out.","bg":"backgrounds/bg-471.png","particles":"magnolia"},
+{"text":"Nurture your soul like a garden. Water it daily.","bg":"backgrounds/bg-472.png","particles":"petals"},
+{"text":"Your kindness is a fragrance that lingers long after you leave.","bg":"backgrounds/bg-473.png","particles":"rose"},
+{"text":"You are perennial. You always come back stronger.","bg":"backgrounds/bg-474.png","particles":"petals"},
+{"text":"There is grace in the way you grow through things.","bg":"backgrounds/bg-475.png","particles":"lily"},
+{"text":"You do not need to be a rose to be beautiful. Be wildflowers.","bg":"backgrounds/bg-476.png","particles":"magnolia"},
+{"text":"Your heart holds a whole garden of unspoken kindnesses.","bg":"backgrounds/bg-477.png","particles":"petals"},
+{"text":"Like flowers, you turn toward love. That is natural.","bg":"backgrounds/bg-478.png","particles":"rose"},
+{"text":"You have the patience of seeds and the brilliance of blooms.","bg":"backgrounds/bg-479.png","particles":"petals"},
+{"text":"Every morning you wake is another chance to bloom.","bg":"backgrounds/bg-480.png","particles":"lily"},
+{"text":"Your growth does not need an audience. It just needs your care.","bg":"backgrounds/bg-481.png","particles":"magnolia"},
+{"text":"You are a bouquet of all the beautiful things you have survived.","bg":"backgrounds/bg-482.png","particles":"petals"},
+{"text":"The most beautiful gardens have the deepest roots.","bg":"backgrounds/bg-483.png","particles":"rose"},
+{"text":"You smell like resilience and look like grace.","bg":"backgrounds/bg-484.png","particles":"petals"},
+{"text":"Let yourself be delicate. Fragile things hold the most beauty.","bg":"backgrounds/bg-485.png","particles":"lily"},
+{"text":"You are fresh air in a world full of noise.","bg":"backgrounds/bg-486.png","particles":"magnolia"},
+{"text":"Blossom without apology. The garden is big enough for all of us.","bg":"backgrounds/bg-487.png","particles":"petals"},
+{"text":"You carry spring within you. Even in winter, you bloom.","bg":"backgrounds/bg-488.png","particles":"rose"},
+{"text":"Nourish your body. It is the only home you will ever own.","bg":"backgrounds/bg-489.png","particles":"glitter"},
+{"text":"Self-care tastes like slow mornings and warm food.","bg":"backgrounds/bg-490.png","particles":"glitter"},
+{"text":"You deserve to be fed — body, mind, and soul.","bg":"backgrounds/bg-491.png","particles":"glitter"},
+{"text":"Sweetness is not indulgence. It is self-love on a plate.","bg":"backgrounds/bg-492.png","particles":"glitter"},
+{"text":"Fill your cup first. Then share what overflows.","bg":"backgrounds/bg-493.png","particles":"glitter"},
+{"text":"There is love in the way you nourish yourself.","bg":"backgrounds/bg-494.png","particles":"glitter"},
+{"text":"You are allowed to enjoy the good things in life. Fully.","bg":"backgrounds/bg-495.png","particles":"glitter"},
+{"text":"Taking time for simple pleasures is not laziness. It is wisdom.","bg":"backgrounds/bg-496.png","particles":"glitter"},
+{"text":"Your body is worthy of care and delicious things.","bg":"backgrounds/bg-497.png","particles":"glitter"},
+{"text":"Savor this moment. You have earned every second of it.","bg":"backgrounds/bg-498.png","particles":"glitter"},
+{"text":"Joy lives in the small things. Let yourself find it there.","bg":"backgrounds/bg-499.png","particles":"glitter"},
+{"text":"You are the recipe for something extraordinary.","bg":"backgrounds/bg-500.png","particles":"glitter"},
+{"text":"Life is richer when you allow yourself to taste it fully.","bg":"backgrounds/bg-501.png","particles":"glitter"},
+{"text":"You are worthy of abundance. In all its forms.","bg":"backgrounds/bg-502.png","particles":"glitter"},
+{"text":"Feed your dreams the same way you feed your body: with intention.","bg":"backgrounds/bg-503.png","particles":"glitter"},
+{"text":"Comfort is not a weakness. It is a form of love.","bg":"backgrounds/bg-504.png","particles":"glitter"},
+{"text":"You are the sweetest thing in any room you walk into.","bg":"backgrounds/bg-505.png","particles":"glitter"}
 ]
 </script>
 <script>
@@ -549,6 +773,7 @@ const hint=document.getElementById('hint');
 const mehBtn=document.getElementById('mehBtn');
 const favBtn=document.getElementById('favBtn');
 const sndBtn=document.getElementById('sndBtn');
+const mismatchBtn=document.getElementById('mismatchBtn');
 const navHome=document.getElementById('navHome');
 const navFav=document.getElementById('navFav');
 const favView=document.getElementById('favView');
@@ -556,10 +781,12 @@ const favList=document.getElementById('favList');
 const cardArea=document.getElementById('cardArea');
 const actions=document.getElementById('actions');
 const heartBurst=document.getElementById('heartBurst');
+const phoneFrame=document.querySelector('.phone-frame')||document.body;
 
 let currentIdx=0;
 let deck=[];
 let mehed=JSON.parse(localStorage.getItem('mm2_mehed')||'[]');
+let mismatched=JSON.parse(localStorage.getItem('mm2_mismatched')||'[]');
 let favs=JSON.parse(localStorage.getItem('mm2_favs')||'[]');
 let hintShown=false;
 let currentScene='';
@@ -576,7 +803,7 @@ function shuffle(arr){
 }
 
 function buildDeck(){
-  deck=shuffle(cards.filter((_,i)=>!mehed.includes(i)));
+  deck=shuffle(cards.filter((_,i)=>!mehed.includes(i)&&!mismatched.includes(i)));
   currentIdx=0;
 }
 function createParticles(type){
@@ -591,7 +818,9 @@ function createParticles(type){
     switch(type){
       case'petals':
         p.classList.add('p-petal');
-        p.style.cssText=`left:${left}%;top:${-10-Math.random()*20}px;width:${8+size*10}px;height:${10+size*12}px;opacity:${0.4+Math.random()*0.3};animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
+        const petalDur=12+Math.random()*8;
+        const petalDelay=-(Math.random()*petalDur);
+        p.style.cssText=`left:${left}%;top:${-10-Math.random()*20}px;width:${8+size*10}px;height:${10+size*12}px;opacity:${0.4+Math.random()*0.3};animation-duration:${petalDur}s;animation-delay:${petalDelay}s`;
         break;
       case'fireflies':
         p.classList.add('p-firefly');
@@ -607,7 +836,9 @@ function createParticles(type){
         break;
       case'lanterns':
         p.classList.add('p-lantern');
-        p.style.cssText=`left:${left}%;bottom:-20px;width:${10+size*5}px;height:${12+size*6}px;animation-duration:${18+Math.random()*10}s;animation-delay:${stagger}s`;
+        const lantDur=18+Math.random()*10;
+        const lantDelay=-(Math.random()*lantDur);
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${10+size*5}px;height:${12+size*6}px;animation-duration:${lantDur}s;animation-delay:${lantDelay}s`;
         break;
       case'butterflies':
         p.classList.add('p-butterfly');
@@ -628,11 +859,15 @@ function createParticles(type){
         break;
       case'bubbles':
         p.classList.add('p-bubble');
-        p.style.cssText=`left:${left}%;bottom:-20px;width:${8+size*12}px;height:${8+size*12}px;animation-duration:${16+Math.random()*10}s;animation-delay:${stagger}s`;
+        const bubDur=16+Math.random()*10;
+        const bubDelay=-(Math.random()*bubDur);
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${8+size*12}px;height:${8+size*12}px;animation-duration:${bubDur}s;animation-delay:${bubDelay}s`;
         break;
       case'leaf':
         p.classList.add('p-leaf');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*6}px;height:${6+size*6}px;animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
+        const leafDur=12+Math.random()*8;
+        const leafDelay=-(Math.random()*leafDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*6}px;height:${6+size*6}px;animation-duration:${leafDur}s;animation-delay:${leafDelay}s`;
         break;
       case'sand':
         p.classList.add('p-sand');
@@ -652,23 +887,33 @@ function createParticles(type){
         break;
       case'rose':
         p.classList.add('p-rose');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*6}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${12+Math.random()*8}s;animation-delay:${stagger}s`;
+        const roseDur=12+Math.random()*8;
+        const roseDelay=-(Math.random()*roseDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*6}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${roseDur}s;animation-delay:${roseDelay}s`;
         break;
       case'marigold':
         p.classList.add('p-marigold');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*5}px;height:${6+size*5}px;opacity:${0.7+Math.random()*0.3};animation-duration:${10+Math.random()*8}s;animation-delay:${stagger}s`;
+        const mariDur=10+Math.random()*8;
+        const mariDelay=-(Math.random()*mariDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${6+size*5}px;height:${6+size*5}px;opacity:${0.7+Math.random()*0.3};animation-duration:${mariDur}s;animation-delay:${mariDelay}s`;
         break;
       case'lily':
         p.classList.add('p-lily');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${10+size*8}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${14+Math.random()*8}s;animation-delay:${stagger}s`;
+        const lilyDur=14+Math.random()*8;
+        const lilyDelay=-(Math.random()*lilyDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${10+size*8}px;height:${8+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${lilyDur}s;animation-delay:${lilyDelay}s`;
         break;
       case'magnolia':
         p.classList.add('p-magnolia-petal');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${12+size*8}px;height:${10+size*6}px;opacity:${0.5+Math.random()*0.3};animation-duration:${14+Math.random()*10}s;animation-delay:${stagger}s`;
+        const magDur=14+Math.random()*10;
+        const magDelay=-(Math.random()*magDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${12+size*8}px;height:${10+size*6}px;opacity:${0.5+Math.random()*0.3};animation-duration:${magDur}s;animation-delay:${magDelay}s`;
         break;
       case'iridescent':
         p.classList.add('p-iridescent');
-        p.style.cssText=`left:${left}%;bottom:-20px;width:${12+size*16}px;height:${12+size*16}px;animation-duration:${18+Math.random()*12}s;animation-delay:${stagger}s;filter:hue-rotate(${Math.random()*360}deg)`;
+        const iriDur=18+Math.random()*12;
+        const iriDelay=-(Math.random()*iriDur);
+        p.style.cssText=`left:${left}%;bottom:-20px;width:${12+size*16}px;height:${12+size*16}px;animation-duration:${iriDur}s;animation-delay:${iriDelay}s;filter:hue-rotate(${Math.random()*360}deg)`;
         break;
       case'water-sparkle':
         p.classList.add('p-water-sparkle');
@@ -680,7 +925,9 @@ function createParticles(type){
         break;
       case'fall-leaves':
         p.classList.add('p-fall-leaf');
-        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*8}px;height:${6+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${10+Math.random()*8}s;animation-delay:${stagger}s;filter:hue-rotate(${Math.random()*40-20}deg)`;
+        const flDur=10+Math.random()*8;
+        const flDelay=-(Math.random()*flDur);
+        p.style.cssText=`left:${left}%;top:${-10}px;width:${8+size*8}px;height:${6+size*6}px;opacity:${0.6+Math.random()*0.3};animation-duration:${flDur}s;animation-delay:${flDelay}s;filter:hue-rotate(${Math.random()*40-20}deg)`;
         break;
       case'glitter':
         p.classList.add('p-glitter');
@@ -749,10 +996,8 @@ function showCard(){
   // Update fav button state
   const origIdx=cards.indexOf(card);
   if(favs.includes(origIdx)){
-    favBtn.innerHTML='&#x2764;';
     favBtn.classList.add('loved');
   }else{
-    favBtn.innerHTML='&#x2661;';
     favBtn.classList.remove('loved');
   }
   // Restart ambient with new sound for each card
@@ -789,11 +1034,9 @@ function favCard(){
   const origIdx=cards.indexOf(card);
   if(favs.includes(origIdx)){
     favs=favs.filter(x=>x!==origIdx);
-    favBtn.innerHTML='&#x2661;';
     favBtn.classList.remove('loved');
   }else{
     favs.push(origIdx);
-    favBtn.innerHTML='&#x2764;';
     favBtn.classList.add('loved');
     burstHearts();
   }
@@ -802,18 +1045,70 @@ function favCard(){
 
 function burstHearts(){
   const rect=favBtn.getBoundingClientRect();
-  heartBurst.style.left=rect.left+rect.width/2+'px';
-  heartBurst.style.top=rect.top+'px';
+  const frameRect=phoneFrame.getBoundingClientRect();
+  heartBurst.style.left=(rect.left-frameRect.left+rect.width/2)+'px';
+  heartBurst.style.top=(rect.top-frameRect.top)+'px';
   heartBurst.innerHTML='';
-  for(let i=0;i<5;i++){
+  const heartEmojis=['❤️','💕','💗','💖','✨'];
+  for(let i=0;i<12;i++){
     const h=document.createElement('span');
     h.className='mini-heart';
-    h.textContent='❤️';
-    h.style.left=(Math.random()*40-20)+'px';
-    h.style.animationDelay=(i*0.08)+'s';
+    h.textContent=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+    const angle=Math.random()*Math.PI*2;
+    const dist=40+Math.random()*60;
+    const hx=Math.cos(angle)*dist;
+    const hy=Math.sin(angle)*dist-30;
+    h.style.cssText=`left:0;top:0;--hx:${hx}px;--hy:${hy}px;animation-delay:${Math.random()*0.6}s;font-size:${12+Math.random()*8}px`;
     heartBurst.appendChild(h);
   }
-  setTimeout(()=>{heartBurst.innerHTML='';},900);
+  setTimeout(()=>{heartBurst.innerHTML='';},2200);
+}
+
+// Favorites carousel — whimsy backgrounds with slow crossfade
+const favCarousel=document.getElementById('favCarousel');
+const whimsyBgs=[];
+(function(){
+  // Original whimsy: 132-184, New whimsy: 330-400
+  for(let i=132;i<=184;i++)whimsyBgs.push('backgrounds/bg-'+String(i).padStart(3,'0')+'.png');
+  for(let i=330;i<=400;i++)whimsyBgs.push('backgrounds/bg-'+String(i).padStart(3,'0')+'.png');
+})();
+let carouselImgs=[];
+let carouselIdx=0;
+let carouselTimer=null;
+let carouselPreloaded=false;
+
+function preloadCarousel(){
+  if(carouselPreloaded)return;
+  carouselPreloaded=true;
+  // Shuffle and pick 12 images for the carousel
+  const shuffled=[...whimsyBgs].sort(()=>Math.random()-0.5).slice(0,12);
+  favCarousel.innerHTML='';
+  carouselImgs=[];
+  shuffled.forEach((src,i)=>{
+    const img=new Image();
+    img.src=src;
+    img.alt='';
+    img.draggable=false;
+    if(i===0)img.classList.add('active');
+    favCarousel.appendChild(img);
+    carouselImgs.push(img);
+  });
+  carouselIdx=0;
+}
+
+function startCarousel(){
+  preloadCarousel();
+  if(carouselTimer)return;
+  carouselTimer=setInterval(()=>{
+    if(carouselImgs.length<2)return;
+    carouselImgs[carouselIdx].classList.remove('active');
+    carouselIdx=(carouselIdx+1)%carouselImgs.length;
+    carouselImgs[carouselIdx].classList.add('active');
+  },5000);
+}
+
+function stopCarousel(){
+  if(carouselTimer){clearInterval(carouselTimer);carouselTimer=null;}
 }
 
 function showFavorites(){
@@ -822,10 +1117,12 @@ function showFavorites(){
   actions.style.display='none';
   navHome.classList.remove('active');
   navFav.classList.add('active');
+  startCarousel();
   renderFavList();
 }
 
 function showHome(){
+  stopCarousel();
   favView.classList.add('hidden');
   cardArea.style.display='flex';
   actions.style.display='flex';
@@ -862,7 +1159,6 @@ function renderFavList(){
         const card=deck[currentIdx];
         const origIdx=cards.indexOf(card);
         if(!favs.includes(origIdx)){
-          favBtn.innerHTML='&#x2661;';
           favBtn.classList.remove('loved');
         }
       }
@@ -873,6 +1169,7 @@ function renderFavList(){
 // Play Favorites
 function playFavorites(){
   if(favs.length===0)return;
+  stopCarousel();
   favView.classList.add('hidden');
   cardArea.style.display='flex';
   actions.style.display='flex';
@@ -885,101 +1182,161 @@ function playFavorites(){
 }
 document.getElementById('playFavBtn').addEventListener('click',playFavorites);
 
-// Ambient sound system — toggle on/off, loops per card
+// Whimsical music system — toggle on/off, loops per card
 let audioCtx=null;
 let soundOn=JSON.parse(localStorage.getItem('mm2_sound')||'false');
 let ambientNodes=[];
 let ambientInterval=null;
+let currentMusicIdx=0;
 
-const ambientSounds={
-  rain:function(ctx,dur){
-    const bufSize=ctx.sampleRate*dur;
-    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
-    const data=buf.getChannelData(0);
-    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.15;}
-    const src=ctx.createBufferSource();src.buffer=buf;
-    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=800;
-    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.25,ctx.currentTime+0.5);
-    gain.gain.setValueAtTime(0.25,ctx.currentTime+dur-1);
-    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
-    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
-    src.start();src.stop(ctx.currentTime+dur);return{src,gain};
-  },
-  birds:function(ctx,dur){
-    const gain=ctx.createGain();gain.gain.value=1;gain.connect(ctx.destination);
-    function chirp(time){
+// Musical scales and patterns for whimsical loops
+const musicalModes={
+  musicBox:function(ctx,dur){
+    // Music box arpeggio — pentatonic, gentle and dreamy
+    const master=ctx.createGain();master.gain.value=0.12;master.connect(ctx.destination);
+    const reverb=ctx.createConvolver();
+    const revBuf=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
+    const revData=revBuf.getChannelData(0);
+    for(let i=0;i<revData.length;i++){revData[i]=(Math.random()*2-1)*Math.exp(-i/(ctx.sampleRate*0.8));}
+    reverb.buffer=revBuf;reverb.connect(master);
+    const notes=[523.25,587.33,659.25,783.99,880,1046.5,1174.66,1318.51];
+    let t=0;const step=0.4+Math.random()*0.2;
+    while(t<dur-1){
+      const note=notes[Math.floor(Math.random()*notes.length)];
       const osc=ctx.createOscillator();const g=ctx.createGain();
-      osc.connect(g);g.connect(gain);
-      osc.type='sine';
-      const baseF=1800+Math.random()*1200;
-      osc.frequency.setValueAtTime(baseF,time);
-      osc.frequency.exponentialRampToValueAtTime(baseF*1.3,time+0.05);
-      osc.frequency.exponentialRampToValueAtTime(baseF*0.8,time+0.12);
-      g.gain.setValueAtTime(0,time);
-      g.gain.linearRampToValueAtTime(0.05,time+0.02);
-      g.gain.linearRampToValueAtTime(0,time+0.18);
-      osc.start(time);osc.stop(time+0.18);
+      osc.type='sine';osc.frequency.value=note;
+      osc.connect(g);g.connect(reverb);
+      const startT=ctx.currentTime+t;
+      g.gain.setValueAtTime(0,startT);
+      g.gain.linearRampToValueAtTime(0.6,startT+0.01);
+      g.gain.exponentialRampToValueAtTime(0.001,startT+1.2);
+      osc.start(startT);osc.stop(startT+1.3);
+      t+=step;
     }
-    for(let t=0;t<dur-0.5;t+=0.3+Math.random()*0.7){chirp(ctx.currentTime+t);}
-    return{src:null,gain};
+    return{src:null,gain:master};
   },
-  water:function(ctx,dur){
-    const bufSize=ctx.sampleRate*dur;
-    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
-    const data=buf.getChannelData(0);
-    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.2;}
-    const src=ctx.createBufferSource();src.buffer=buf;
-    const filt=ctx.createBiquadFilter();filt.type='bandpass';filt.frequency.value=400;filt.Q.value=2;
-    const lfo=ctx.createOscillator();const lfoGain=ctx.createGain();
-    lfo.frequency.value=0.3;lfoGain.gain.value=200;
-    lfo.connect(lfoGain);lfoGain.connect(filt.frequency);lfo.start();
-    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.2,ctx.currentTime+0.5);
-    gain.gain.setValueAtTime(0.2,ctx.currentTime+dur-1);
-    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
-    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
-    src.start();src.stop(ctx.currentTime+dur);lfo.stop(ctx.currentTime+dur);return{src,gain};
-  },
-  wind:function(ctx,dur){
-    const bufSize=ctx.sampleRate*dur;
-    const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
-    const data=buf.getChannelData(0);
-    for(let i=0;i<bufSize;i++){data[i]=(Math.random()*2-1)*0.3;}
-    const src=ctx.createBufferSource();src.buffer=buf;
-    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=300;
-    const lfo=ctx.createOscillator();const lfoGain=ctx.createGain();
-    lfo.frequency.value=0.15;lfoGain.gain.value=150;
-    lfo.connect(lfoGain);lfoGain.connect(filt.frequency);lfo.start();
-    const gain=ctx.createGain();gain.gain.setValueAtTime(0,ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.18,ctx.currentTime+1);
-    gain.gain.setValueAtTime(0.18,ctx.currentTime+dur-1);
-    gain.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
-    src.connect(filt);filt.connect(gain);gain.connect(ctx.destination);
-    src.start();src.stop(ctx.currentTime+dur);lfo.stop(ctx.currentTime+dur);return{src,gain};
-  },
-  crickets:function(ctx,dur){
-    const gain=ctx.createGain();gain.gain.value=1;gain.connect(ctx.destination);
-    function chirr(time){
+  celesta:function(ctx,dur){
+    // Celesta-like shimmer — soft melodic pattern
+    const master=ctx.createGain();master.gain.value=0.1;master.connect(ctx.destination);
+    const scale=[392,440,493.88,523.25,587.33,659.25,698.46,783.99];
+    const pattern=[0,2,4,5,7,5,4,2];
+    let t=0;let pi=0;const step=0.55;
+    while(t<dur-1){
+      const freq=scale[pattern[pi%pattern.length]];
       const osc=ctx.createOscillator();const g=ctx.createGain();
-      osc.connect(g);g.connect(gain);
-      osc.type='square';osc.frequency.value=4000+Math.random()*1000;
-      g.gain.setValueAtTime(0,time);
-      g.gain.linearRampToValueAtTime(0.025,time+0.01);
-      g.gain.setValueAtTime(0.025,time+0.04);
-      g.gain.linearRampToValueAtTime(0,time+0.07);
-      osc.start(time);osc.stop(time+0.07);
+      osc.type='triangle';osc.frequency.value=freq;
+      // Add slight harmonic
+      const osc2=ctx.createOscillator();const g2=ctx.createGain();
+      osc2.type='sine';osc2.frequency.value=freq*2;
+      g2.gain.value=0.3;
+      osc.connect(g);osc2.connect(g2);g.connect(master);g2.connect(master);
+      const startT=ctx.currentTime+t;
+      g.gain.setValueAtTime(0,startT);
+      g.gain.linearRampToValueAtTime(0.5,startT+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001,startT+1.0);
+      g2.gain.setValueAtTime(0,startT);
+      g2.gain.linearRampToValueAtTime(0.15,startT+0.02);
+      g2.gain.exponentialRampToValueAtTime(0.001,startT+0.8);
+      osc.start(startT);osc.stop(startT+1.1);
+      osc2.start(startT);osc2.stop(startT+0.9);
+      t+=step;pi++;
     }
-    for(let t=0;t<dur-0.5;t+=0.08+Math.random()*0.15){chirr(ctx.currentTime+t);}
-    return{src:null,gain};
+    return{src:null,gain:master};
+  },
+  dreamPad:function(ctx,dur){
+    // Soft evolving pad — warm and meditative
+    const master=ctx.createGain();master.gain.value=0.08;master.connect(ctx.destination);
+    const chordNotes=[[261.63,329.63,392],[293.66,349.23,440],[261.63,311.13,392],[246.94,311.13,369.99]];
+    const chord=chordNotes[Math.floor(Math.random()*chordNotes.length)];
+    chord.forEach(freq=>{
+      const osc=ctx.createOscillator();const g=ctx.createGain();
+      osc.type='sine';osc.frequency.value=freq;
+      const lfo=ctx.createOscillator();const lfoG=ctx.createGain();
+      lfo.type='sine';lfo.frequency.value=0.2+Math.random()*0.3;lfoG.gain.value=2;
+      lfo.connect(lfoG);lfoG.connect(osc.frequency);lfo.start(ctx.currentTime);
+      osc.connect(g);g.connect(master);
+      g.gain.setValueAtTime(0,ctx.currentTime);
+      g.gain.linearRampToValueAtTime(0.4,ctx.currentTime+2);
+      g.gain.setValueAtTime(0.4,ctx.currentTime+dur-2);
+      g.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
+      osc.start(ctx.currentTime);osc.stop(ctx.currentTime+dur);
+      lfo.stop(ctx.currentTime+dur);
+    });
+    return{src:null,gain:master};
+  },
+  windChimes:function(ctx,dur){
+    // Wind chimes — random pentatonic bells
+    const master=ctx.createGain();master.gain.value=0.1;master.connect(ctx.destination);
+    const notes=[523.25,659.25,783.99,987.77,1174.66,1318.51,1567.98];
+    let t=0;
+    while(t<dur-1){
+      const freq=notes[Math.floor(Math.random()*notes.length)];
+      const osc=ctx.createOscillator();const g=ctx.createGain();
+      osc.type='sine';osc.frequency.value=freq;
+      const osc2=ctx.createOscillator();const g2=ctx.createGain();
+      osc2.type='sine';osc2.frequency.value=freq*2.01;g2.gain.value=0.2;
+      osc.connect(g);osc2.connect(g2);g.connect(master);g2.connect(master);
+      const startT=ctx.currentTime+t;
+      g.gain.setValueAtTime(0,startT);
+      g.gain.linearRampToValueAtTime(0.4,startT+0.005);
+      g.gain.exponentialRampToValueAtTime(0.001,startT+2.0);
+      g2.gain.setValueAtTime(0,startT);
+      g2.gain.linearRampToValueAtTime(0.08,startT+0.005);
+      g2.gain.exponentialRampToValueAtTime(0.001,startT+1.5);
+      osc.start(startT);osc.stop(startT+2.1);
+      osc2.start(startT);osc2.stop(startT+1.6);
+      t+=0.6+Math.random()*1.2;
+    }
+    return{src:null,gain:master};
+  },
+  lullaby:function(ctx,dur){
+    // Gentle lullaby melody — simple and warm
+    const master=ctx.createGain();master.gain.value=0.1;master.connect(ctx.destination);
+    const melody=[392,440,523.25,440,392,349.23,330,349.23,392,440,523.25,587.33,523.25,440,392,349.23];
+    let t=0;let mi=0;const step=0.65;
+    while(t<dur-1){
+      const freq=melody[mi%melody.length];
+      const osc=ctx.createOscillator();const g=ctx.createGain();
+      osc.type='triangle';osc.frequency.value=freq;
+      osc.connect(g);g.connect(master);
+      const startT=ctx.currentTime+t;
+      g.gain.setValueAtTime(0,startT);
+      g.gain.linearRampToValueAtTime(0.45,startT+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,startT+0.9);
+      osc.start(startT);osc.stop(startT+1.0);
+      t+=step;mi++;
+    }
+    return{src:null,gain:master};
+  },
+  sparkleArp:function(ctx,dur){
+    // Fast sparkle arpeggio — fairy dust feeling
+    const master=ctx.createGain();master.gain.value=0.07;master.connect(ctx.destination);
+    const notes=[1046.5,1174.66,1318.51,1567.98,1760,2093];
+    let t=0;let dir=1;let ni=0;
+    while(t<dur-0.5){
+      const freq=notes[ni];
+      const osc=ctx.createOscillator();const g=ctx.createGain();
+      osc.type='sine';osc.frequency.value=freq;
+      osc.connect(g);g.connect(master);
+      const startT=ctx.currentTime+t;
+      g.gain.setValueAtTime(0,startT);
+      g.gain.linearRampToValueAtTime(0.5,startT+0.005);
+      g.gain.exponentialRampToValueAtTime(0.001,startT+0.6);
+      osc.start(startT);osc.stop(startT+0.7);
+      ni+=dir;
+      if(ni>=notes.length-1){dir=-1;ni=notes.length-1;}
+      if(ni<=0){dir=1;ni=0;}
+      t+=0.2+Math.random()*0.15;
+    }
+    return{src:null,gain:master};
   }
 };
 
-const ambientTypes=['rain','birds','water','wind','crickets'];
+const musicTypes=['musicBox','celesta','dreamPad','windChimes','lullaby','sparkleArp'];
 
 function stopAmbient(){
   if(ambientInterval){clearInterval(ambientInterval);ambientInterval=null;}
-  ambientNodes.forEach(n=>{try{if(n.gain)n.gain.gain.setValueAtTime(0,audioCtx.currentTime);}catch(e){}});
+  ambientNodes.forEach(n=>{try{if(n.gain){n.gain.gain.cancelScheduledValues(audioCtx.currentTime);n.gain.gain.setValueAtTime(0,audioCtx.currentTime);}}catch(e){}});
   ambientNodes=[];
 }
 
@@ -987,13 +1344,14 @@ function startAmbient(){
   if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   if(audioCtx.state==='suspended')audioCtx.resume();
   stopAmbient();
-  const type=ambientTypes[Math.floor(Math.random()*ambientTypes.length)];
+  const type=musicTypes[currentMusicIdx%musicTypes.length];
+  currentMusicIdx++;
   function playLoop(){
-    const node=ambientSounds[type](audioCtx,10);
+    const node=musicalModes[type](audioCtx,12);
     ambientNodes.push(node);
   }
   playLoop();
-  ambientInterval=setInterval(playLoop,10000);
+  ambientInterval=setInterval(playLoop,12000);
 }
 
 function toggleSound(){
@@ -1012,20 +1370,155 @@ function playChime(){
   try{
     if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
     if(audioCtx.state==='suspended')audioCtx.resume();
-    const osc=audioCtx.createOscillator();
-    const gain=audioCtx.createGain();
-    osc.connect(gain);gain.connect(audioCtx.destination);
-    osc.type='sine';osc.frequency.setValueAtTime(800+Math.random()*400,audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.06,audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.5);
-    osc.start();osc.stop(audioCtx.currentTime+0.5);
+    const notes=[1046.5,1318.51,1567.98];
+    const now=audioCtx.currentTime;
+    notes.forEach((freq,i)=>{
+      const osc=audioCtx.createOscillator();
+      const gain=audioCtx.createGain();
+      osc.connect(gain);gain.connect(audioCtx.destination);
+      osc.type='sine';osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0,now+i*0.08);
+      gain.gain.linearRampToValueAtTime(0.05,now+i*0.08+0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001,now+i*0.08+0.4);
+      osc.start(now+i*0.08);osc.stop(now+i*0.08+0.5);
+    });
   }catch(e){}
 }
 
 sndBtn.addEventListener('click',e=>{e.stopPropagation();toggleSound();});
 sndBtn.style.opacity=soundOn?'1':'0.4';
 
+// Mismatch reporting system
+let mismatchLog=JSON.parse(localStorage.getItem('mm2_mismatch_log')||'[]');
+let mismatchTooltipCount=parseInt(localStorage.getItem('mm2_mismatch_shown')||'0');
+
+function reportMismatch(){
+  if(deck.length===0)return;
+  const card=deck[currentIdx];
+  const origIdx=cards.indexOf(card);
+  if(mismatched.includes(origIdx))return; // already reported
+  
+  mismatched.push(origIdx);
+  localStorage.setItem('mm2_mismatched',JSON.stringify(mismatched));
+  
+  // Log with details for review
+  mismatchLog.push({idx:origIdx,text:card.text,bg:card.bg,date:new Date().toISOString()});
+  localStorage.setItem('mm2_mismatch_log',JSON.stringify(mismatchLog));
+  
+  // Lightning — thin diagonal zigzag, random direction, soft cream-gold, starts off-screen
+  const tear=document.createElement('div');
+  tear.className='lightning-tear';
+  const overlay=document.createElement('div');
+  overlay.className='lightning-overlay';
+  tear.appendChild(overlay);
+  const cvs=document.createElement('canvas');
+  tear.appendChild(cvs);
+  phoneFrame.appendChild(tear);
+  const w=phoneFrame.offsetWidth;
+  const h=phoneFrame.offsetHeight;
+  cvs.width=w;cvs.height=h;
+  cvs.style.opacity='0.7';
+  const ctx2=cvs.getContext('2d');
+  function zigzag(x1,y1,x2,y2,jitter){
+    const pts=[{x:x1,y:y1}];
+    const dist=Math.hypot(x2-x1,y2-y1);
+    const segs=Math.max(8,Math.floor(dist/20));
+    for(let i=1;i<segs;i++){
+      const t=i/segs;
+      const mx=x1+(x2-x1)*t+(Math.random()-0.5)*jitter;
+      const my=y1+(y2-y1)*t+(Math.random()-0.5)*jitter*0.5;
+      pts.push({x:mx,y:my});
+    }
+    pts.push({x:x2,y:y2});
+    return pts;
+  }
+  // Color palette — soft cream/gold/off-white mix
+  const boltColors=['rgba(255,245,220,','rgba(255,230,180,','rgba(255,220,150,','rgba(250,240,210,'];
+  function strokeBolt(pts,width,alpha){
+    const color=boltColors[Math.floor(Math.random()*boltColors.length)];
+    ctx2.beginPath();
+    ctx2.moveTo(pts[0].x,pts[0].y);
+    for(let i=1;i<pts.length;i++){ctx2.lineTo(pts[i].x,pts[i].y);}
+    ctx2.strokeStyle=color+alpha+')';
+    ctx2.lineWidth=width;
+    ctx2.lineCap='round';ctx2.lineJoin='round';
+    ctx2.shadowColor=color+'0.5)';
+    ctx2.shadowBlur=width*3;
+    ctx2.stroke();
+    ctx2.shadowBlur=0;
+  }
+  // Random direction: top-left→bottom-right OR top-right→bottom-left
+  const mirror=Math.random()>0.5;
+  const sx=mirror?(w*0.65+Math.random()*w*0.3):(w*0.05+Math.random()*w*0.3);
+  const sy=-30-Math.random()*40; // Start ABOVE screen
+  const ex=mirror?(w*0.05+Math.random()*w*0.25):(w*0.6+Math.random()*w*0.3);
+  const ey=h+20+Math.random()*30; // End BELOW screen
+  const mainPts=zigzag(sx,sy,ex,ey,35);
+  // Glow
+  strokeBolt(mainPts,5,0.12);
+  // Mid
+  strokeBolt(mainPts,2,0.35);
+  // Core
+  strokeBolt(mainPts,0.8,0.8);
+  // Veins
+  for(let i=2;i<mainPts.length-2;i++){
+    if(Math.random()<0.35){
+      const angle=Math.atan2(ey-sy,ex-sx)+(Math.random()>0.5?1:-1)*(0.5+Math.random()*0.8);
+      const len=20+Math.random()*45;
+      const bx=mainPts[i].x+Math.cos(angle)*len;
+      const by=mainPts[i].y+Math.sin(angle)*len;
+      const veinPts=zigzag(mainPts[i].x,mainPts[i].y,bx,by,10);
+      strokeBolt(veinPts,2.5,0.08);
+      strokeBolt(veinPts,1,0.25);
+      strokeBolt(veinPts,0.4,0.6);
+      // Sub-veins
+      if(Math.random()<0.3&&veinPts.length>3){
+        const vi=Math.floor(veinPts.length*0.5);
+        const a2=angle+(Math.random()-0.5)*1.2;
+        const l2=12+Math.random()*20;
+        const svPts=zigzag(veinPts[vi].x,veinPts[vi].y,veinPts[vi].x+Math.cos(a2)*l2,veinPts[vi].y+Math.sin(a2)*l2,6);
+        strokeBolt(svPts,0.3,0.4);
+      }
+    }
+  }
+  // Fade
+  cvs.style.transition='opacity 0.5s ease-out 0.3s';
+  setTimeout(()=>{cvs.style.opacity='0';},50);
+  setTimeout(()=>{tear.remove();},900);
+  
+  // Show tooltip for first 5 uses
+  if(mismatchTooltipCount<5){
+    mismatchTooltipCount++;
+    localStorage.setItem('mm2_mismatch_shown',String(mismatchTooltipCount));
+    showMismatchTooltip();
+    setTimeout(()=>{
+      deck.splice(currentIdx,1);
+      if(currentIdx>=deck.length)currentIdx=0;
+      showCard();
+    },1200);
+  }else{
+    setTimeout(()=>{
+      deck.splice(currentIdx,1);
+      if(currentIdx>=deck.length)currentIdx=0;
+      showCard();
+    },500);
+  }
+}
+
+function showMismatchTooltip(){
+  let tip=document.querySelector('.mismatch-tooltip');
+  if(!tip){
+    tip=document.createElement('div');
+    tip.className='mismatch-tooltip';
+    tip.textContent='Tap here if the quote doesn\u2019t match the image';
+    document.querySelector('.actions').appendChild(tip);
+  }
+  tip.classList.add('show');
+  setTimeout(()=>{tip.classList.remove('show');},2500);
+}
+
 // Event listeners
+mismatchBtn.addEventListener('click',e=>{e.stopPropagation();reportMismatch();});
 mehBtn.addEventListener('click',e=>{e.stopPropagation();mehCard();});
 favBtn.addEventListener('click',e=>{e.stopPropagation();favCard();playChime();});
 navHome.addEventListener('click',showHome);
@@ -1050,6 +1543,37 @@ cardArea.addEventListener('touchend',e=>{
     nextCard();playChime();
   }
 },{passive:true});
+
+// Fairy dust trail on touch move
+const dustColors=['rgba(255,215,0,0.7)','rgba(255,255,255,0.8)','rgba(200,200,255,0.6)','rgba(255,180,100,0.6)','rgba(220,220,255,0.7)'];
+let dustThrottle=0;
+function spawnDust(x,y){
+  const now=Date.now();
+  if(now-dustThrottle<40)return;
+  dustThrottle=now;
+  for(let i=0;i<3;i++){
+    const d=document.createElement('div');
+    d.className='fairy-dust';
+    const sz=2+Math.random()*4;
+    const ox=(Math.random()-0.5)*12;
+    const oy=(Math.random()-0.5)*12;
+    const color=dustColors[Math.floor(Math.random()*dustColors.length)];
+    d.style.cssText=`left:${x+ox}px;top:${y+oy}px;width:${sz}px;height:${sz}px;background:${color};box-shadow:0 0 ${sz+2}px ${color}`;
+    phoneFrame.appendChild(d);
+    setTimeout(()=>{d.remove();},800);
+  }
+}
+cardArea.addEventListener('touchmove',e=>{
+  const touch=e.touches[0];
+  const rect=phoneFrame.getBoundingClientRect();
+  spawnDust(touch.clientX-rect.left,touch.clientY-rect.top);
+},{passive:true});
+// Mouse fallback for desktop
+cardArea.addEventListener('mousemove',e=>{
+  if(e.buttons===0)return;
+  const rect=phoneFrame.getBoundingClientRect();
+  spawnDust(e.clientX-rect.left,e.clientY-rect.top);
+});
 
 // Init
 buildDeck();
